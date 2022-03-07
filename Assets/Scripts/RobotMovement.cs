@@ -1,0 +1,48 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class RobotMovement : MonoBehaviour
+{
+    [SerializeField]
+    private float speed;
+    [SerializeField]
+    private float forwardMultiplier = 1.5f;
+
+    private Vector3 direction;
+    private Vector3 lookDirection;
+    Plane plane = new Plane(Vector3.up, Vector3.zero);
+    float distance;
+
+
+    //[SerializeField]
+    private Rigidbody rb;
+    // Start is called before the first frame update
+    void Start()
+    {
+        rb = GetComponent<Rigidbody>(); 
+    }
+    private void Update()
+    {
+        direction = new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical")).normalized;
+
+        //direction.z = direction.z > 0 ? direction.z * forwardMultiplier : direction.z;
+                
+        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+
+        if (plane.Raycast(ray, out distance))
+        {
+            Vector3 target = ray.GetPoint(distance);
+            Vector3 direction = transform.position - target;
+            float rotation = Mathf.Atan2(direction.x, direction.z) * Mathf.Rad2Deg;
+            transform.rotation = Quaternion.Euler(0, rotation, 0);
+        }
+
+    }
+    // Update is called once per frame
+    void FixedUpdate()
+    {
+        rb.AddRelativeForce(-direction * speed * Time.fixedDeltaTime, ForceMode.Acceleration);
+
+    }
+}
