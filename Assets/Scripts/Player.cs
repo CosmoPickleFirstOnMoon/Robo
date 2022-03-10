@@ -7,54 +7,51 @@ using UnityEngine;
 
 public class Player : Robot
 {
-    public Rigidbody rb;
-    public float baseMoveSpeed {get;} = 10f;
-    public float moveSpeed;
-    public float vx, vy, vz;        //movement values. moveSpeed modifies these
+    //public Rigidbody rb;
+
+    //all weapons are hidden by default until player selects them. Only one weapon is visible at a time.
+    //[SerializeField]Transform weaponTransform;  //used to position weapons in front of the robot. This transform follows the player.
+
+    //player stats
+    public float health;       //called TSP in game
+    public float maxHealth;
+    public float energy;       //basically stamina. All actions use energy
+    public float maxEnergy;
+
+
+    //public Shotgun shotgun;         
     Vector3 moveDirection;
+    public bool weaponPickedUp;
+    //RobotMovement rm;
+    public static Player instance;
 
-    //[Header("Inputs")]
-    //public PlayerInput playerControls;
-    //InputAction move;
-    //InputAction fireWeapon;
+   void Awake()
+    {
+        if (instance != null && instance != this)
+        {
+            Destroy(gameObject);
+            return;
+        }
 
+        instance = this;
+    }
 
     // Start is called before the first frame update
     void Start()
     {
-        moveSpeed = baseMoveSpeed;
-        vx = 0;
-        vy = 0;
-        vz = 0;
+        //rm = RobotMovement.instance;
+
+        //Weapon placement. Each weapon is adjusted to rest in the robot's hands.
+        /*shotgun.transform.localPosition = new Vector3(-0.412f,1.2f,-0.574f);
+        shotgun.transform.localRotation = Quaternion.Euler(0,-10,0);
+        shotgun.gameObject.SetActive(false);
+        weaponPickedUp = false;*/
     }
 
    
-    /*void OnEnable()
-    {
-        move = playerControls.Player.Movement;
-        move.Enable();
-
-
-        fireWeapon = playerControls.Player.FireWeapon;
-        fireWeapon.Enable();
-        fireWeapon.performed += FireWeapon;     //calls the FireWeapon method in this script
-    }
-
-    void OnDisable()
-    {
-        move.Disable();
-        fireWeapon.Disable();
-    }*/
-
-    //FixedUpdate is for any physics involving rigidbodies. Player movement and possibly other actions go in here.
-    void FixedUpdate()
-    {
-        rb.velocity = new Vector3(vx, vy, vz);
-    }
-
     void Update()
     {
-        //rb.velocity = new Vector3()
+       
     }
 
     #region Controls
