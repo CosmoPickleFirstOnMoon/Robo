@@ -12,7 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d7f877cf0e9709144806ff5c65e8fdfe, type: 3}
   m_Name: chip_
   m_EditorClassIdentifier: 
+  itemName: 
+  price: 0
+  description: 
+  type: 0
   health: 0
   energy: 0
   moveSpeed: 0
-  passiveEffect: {fileID: 0}

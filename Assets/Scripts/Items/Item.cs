@@ -4,7 +4,7 @@ using UnityEngine;
 using TMPro;
 
 /* Base class for all non-weapon consumable items. The items can be picked up in game. A separate script will handle the item effects */
-public abstract class Item : MonoBehaviour
+public class Item : MonoBehaviour
 {
     //public string itemName;
     //public int price;           //amount of scrap to purchase
