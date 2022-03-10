@@ -5,13 +5,13 @@ using UnityEngine;
 public class Shotgun : Weapon
 {
     [SerializeField]
-    private GameObject gun;
+    private Transform SpawnPoint;
 
     private ParticleSystem particles;
     // Start is called before the first frame update
     protected override void Start()
     {
-        particles = gun.GetComponent<ParticleSystem>();
+        particles = GetComponent<ParticleSystem>();
     }
 
     // Update is called once per frame
@@ -20,7 +20,7 @@ public class Shotgun : Weapon
 
     }
 
-    public override void OnFireClicked()
+    public override void OnFireHold()
     {
         particles.Play();
     }
