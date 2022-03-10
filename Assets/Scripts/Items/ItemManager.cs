@@ -4,7 +4,8 @@ using UnityEngine;
 
 public class ItemManager : MonoBehaviour
 {
-    public ItemData[] items;
+    public ItemData[] itemData;     //contains scriptable objects
+    public Item[] itemObjects;      //contains game objects that will gets its data from itemData at runtime
 
     public static ItemManager instance;
 

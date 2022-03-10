@@ -5,12 +5,12 @@ using UnityEngine;
 [CreateAssetMenu(menuName = "Item Data/Healing", fileName = "heal_")]
 public class HealingItemData : ItemData
 {
-    public float healthAmount;
-    public float energyAmount;
+    public float healthPercentAmount;
+    public float energyPercentAmount;
     public override void Activate(Player player)
     {
-        healthAmount = player.maxHealth * (healthAmount / 100);
-        energyAmount = player.maxEnergy * (energyAmount / 100);
+        float healthAmount = player.maxHealth * (healthPercentAmount / 100);
+        float energyAmount = player.maxEnergy * (energyPercentAmount / 100);
 
         player.health += healthAmount;
         if (player.health > player.maxHealth)
@@ -21,5 +21,6 @@ public class HealingItemData : ItemData
             player.energy = player.maxEnergy;
 
         Debug.Log(healthAmount + " health restored");
+        Debug.Log(energyAmount + " energy restored");
     }
 }

@@ -16,5 +16,5 @@ MonoBehaviour:
   price: 30
   description: Restores 40% TSP
   type: 3
-  healthAmount: 48
-  energyAmount: 0
+  healthPercentAmount: 40
+  energyPercentAmount: 0

@@ -16,5 +16,5 @@ MonoBehaviour:
   price: 0
   description: Restores 10% energy
   type: 3
-  healthAmount: 0
-  energyAmount: 10
+  healthPercentAmount: 0
+  energyPercentAmount: 10
