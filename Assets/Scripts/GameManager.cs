@@ -25,6 +25,9 @@ public class GameManager : MonoBehaviour
             itemManager.itemObjects[i].itemPriceUI.text = itemManager.itemData[i].price.ToString();
             itemManager.itemObjects[i].itemDetailsUI.text = itemManager.itemData[i].description;
         }
+
+        Vector3 itemPos = itemManager.itemObjects[1].transform.position;
+        itemManager.itemObjects[1].transform.position = new Vector3(itemPos.x - 3, itemPos.y, itemPos.z);
     }
 
     // Update is called once per frame

@@ -28,16 +28,22 @@ public class Player : Robot
         }
 
         instance = this;
+
+        //I set up stats here so UI script has access to these values when needed
+        maxHealth = 120;
+        maxEnergy = 80;
+        health = maxHealth;
+        energy = maxEnergy;
     }
 
     // Start is called before the first frame update
     void Start()
     {
 
-        maxHealth = 120;
+        /*maxHealth = 120;
         maxEnergy = 80;
         health = maxHealth;
-        energy = maxEnergy;
+        energy = maxEnergy;*/
     }
 
    
