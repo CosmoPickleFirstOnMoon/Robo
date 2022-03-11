@@ -15,6 +15,7 @@ public class Player : Robot
 
 
     public bool weaponPickedUp;
+    [HideInInspector]public bool isHealing;
     //RobotMovement rm;
     public static Player instance;
 
