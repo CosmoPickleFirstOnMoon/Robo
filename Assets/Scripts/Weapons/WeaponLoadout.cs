@@ -9,12 +9,15 @@ public class WeaponLoadout : MonoBehaviour
     [SerializeField]
     private Animator animator;
     [SerializeField]
+    private AnimationEventHandler eventHandler;
+    [SerializeField]
     private Transform gunHolder;
 
     private List<Weapon> weapons = new List<Weapon>();
     [SerializeField]
     private Weapon currentWeapon;
     private int currentIndex = 0;
+    private int lastIndex = 0;
     // Start is called before the first frame update
     void Start()
     {
@@ -23,6 +26,30 @@ public class WeaponLoadout : MonoBehaviour
             currentWeapon = weapons[currentIndex];
         else
             Debug.Log("Weapons Are Missing");
+        eventHandler.OnWeaponSwitchStart += EventHandler_OnWeaponSwitchStarted;
+        eventHandler.OnWeaponSwitchEnd += EventHandler_OnWeaponSwitchEnded;
+        eventHandler.OnWeaponClosedEnd += EventHandler_OnWeaponClosedEnded;
+    }
+
+    private void EventHandler_OnWeaponSwitchStarted()
+    {
+        currentWeapon.gameObject.SetActive(true);
+        currentWeapon.OnWeaponOpen();
+
+    }
+
+    private void EventHandler_OnWeaponClosedEnded()
+    {
+        weapons[lastIndex].OnWeaponClose();
+        weapons[lastIndex].gameObject.SetActive(false);
+
+        animator.SetTrigger("Open Weapon");
+    }
+
+    private void EventHandler_OnWeaponSwitchEnded()
+    {
+
+
     }
 
     // Update is called once per frame
@@ -38,18 +65,14 @@ public class WeaponLoadout : MonoBehaviour
     public void OnMouseWheel(int dir)
     {
         Debug.Log("Change: " + weapons.Count);
-        int newIndex = (currentIndex + dir) % weapons.Count;
-        if (newIndex == currentIndex) return;
+        lastIndex = currentIndex;
+        currentIndex = (currentIndex + dir + weapons.Count) % weapons.Count;
+        if (lastIndex == currentIndex) return;
 
-        currentWeapon.OnWeaponClose();
-        currentWeapon.gameObject.SetActive(false);
-
-        currentWeapon = weapons[newIndex];
-        currentWeapon.gameObject.SetActive(true);
-        currentWeapon.OnWeaponOpen();
-
-        currentIndex = newIndex;
+        currentWeapon = weapons[currentIndex];
         SetStance();
+        animator.SetTrigger("Close Weapon");
+
     }
     public void OnLeftClickUp()
     {
@@ -67,6 +90,7 @@ public class WeaponLoadout : MonoBehaviour
     }
     public void OnReload()
     {
+        animator.SetTrigger("Reload");
         currentWeapon.OnReload();
     }
 
@@ -76,15 +100,22 @@ public class WeaponLoadout : MonoBehaviour
         {
             animator.SetLayerWeight(animator.GetLayerIndex("FrontalMovementWithGun"), 1);
             animator.SetLayerWeight(animator.GetLayerIndex("SideMovementWIthGun"), 1);
+            animator.SetBool("HoldsGun", true);
 
         }
         else
         {
             animator.SetLayerWeight(animator.GetLayerIndex("FrontalMovementWithGun"), 0);
             animator.SetLayerWeight(animator.GetLayerIndex("SideMovementWIthGun"), 0);
+            animator.SetBool("HoldsGun", false);
 
         }
 
+    }
+
+    public void OnSwitchWeaponEnded(float value)
+    {
+        Debug.Log("Changed");
     }
 
 }

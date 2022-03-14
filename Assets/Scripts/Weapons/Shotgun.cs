@@ -24,4 +24,5 @@ public class Shotgun : Weapon
     {
         particles.Play();
     }
+
 }
