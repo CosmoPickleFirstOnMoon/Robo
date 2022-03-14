@@ -10,10 +10,12 @@ public abstract class Weapon : MonoBehaviour
     public string WeaponName { get; set; }
     protected virtual void Start() { }
     protected virtual void Update() { }
-    public virtual void OnFireClicked() { }
     public virtual void OnFireDown() { }
+    public virtual void OnFireHold() { }
     public virtual void OnFireReleased() { }
 
     public virtual void OnWeaponOpen() { }
     public virtual void OnWeaponClose() { }
+
+    public virtual void OnReload() { }
 }
