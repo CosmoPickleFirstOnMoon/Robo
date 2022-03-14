@@ -25,10 +25,12 @@ public class UI : MonoBehaviour
     Color healColor;
     Color damageColor;
     Color durabilityDamageColor;
+    Image healthSecondaryColor;
+    Image durabilitySecondaryColor;
+    Image energySecondaryColor;
 
     //coroutine checks
     bool adjustMeterCoroutineOn;
-    bool test;
 
     Player player;
 
@@ -36,14 +38,24 @@ public class UI : MonoBehaviour
     void Start()
     {
         player = Player.instance;
-
+        
         //item popup UI is off by default, and only appears when mouse hovers over an item
         itemPopupObject.SetActive(false);
 
         //slider setup
+        Debug.Log(player.health + "/" + player.maxHealth);
+        healthMeter.value = player.health / player.maxHealth;
+        healthSecondaryMeter.value = healthMeter.value;
+        energyMeter.value = player.energy / player.maxEnergy;
+        energySecondaryMeter.value = energyMeter.value;
+        
         healColor = new Color(0.3f, 0.9f, 1);               //light blue
         damageColor = new Color(1, 0.76f, 0.05f);           //gold
         durabilityDamageColor = new Color(0.7f, 0.06f, 0);  //dark red
+        meterRate = 0.3f;
+        healthSecondaryColor = healthSecondaryMeter.fillRect.GetComponent<Image>();
+        energySecondaryColor = energySecondaryMeter.fillRect.GetComponent<Image>();
+        durabilitySecondaryColor = durabilitySecondaryMeter.fillRect.GetComponent<Image>();
     }
 
     // Update is called once per frame
@@ -54,8 +66,8 @@ public class UI : MonoBehaviour
         energyValueUI.text = player.energy + "/" + player.maxEnergy;
 
         //update meters
-        healthMeter.value = player.health / player.maxHealth;
-        energyMeter.value = player.energy / player.maxEnergy;
+        //healthMeter.value = player.health / player.maxHealth;
+        //energyMeter.value = player.energy / player.maxEnergy;
 
         //check if mouse is pointing to something.
         Ray ray;
@@ -74,12 +86,16 @@ public class UI : MonoBehaviour
             itemPopupObject.SetActive(false);
         }
 
-        //FOR TESTING ONLY
+        /*******FOR TESTING ONLY*******/
         if (Input.GetKeyDown(KeyCode.LeftArrow))
         {
             player.health -= 20;
             if (player.health < 0)
                 player.health = 0;
+
+            healthMeter.value = player.health / player.maxHealth;
+            healthSecondaryColor.color = damageColor;
+            StartCoroutine(AdjustMeter(healthMeter, healthSecondaryMeter));
         }
 
         if (Input.GetKeyDown(KeyCode.RightArrow))
@@ -87,7 +103,17 @@ public class UI : MonoBehaviour
             player.health += 20;
             if (player.health > player.maxHealth)
                 player.health = player.maxHealth;
+            
+            healthSecondaryMeter.value = player.health / player.maxHealth;
+            healthSecondaryColor.color = healColor;
+            StartCoroutine(AdjustMeter(healthMeter, healthSecondaryMeter, true));
         }
+
+        //coroutine checks
+        /*if (!adjustMeterCoroutineOn)
+        {
+            StartCoroutine(AdjustMeter(healthMeter, healthSecondaryMeter));
+        }*/
     }
 
     #region Coroutines
@@ -95,14 +121,15 @@ public class UI : MonoBehaviour
     //this coroutine will be used for all sliders.
     IEnumerator AdjustMeter(Slider meter, Slider secondaryMeter, bool isRecovering = false)
     {
+        adjustMeterCoroutineOn = true;
         //a slight delay is added to give player time to see what is happening
         yield return new WaitForSeconds(1);
 
         if (!isRecovering)
-        {
+        {            
             while (secondaryMeter.value > meter.value)
             {
-                secondaryMeter.value -= meterRate * Time.deltaTime;
+                secondaryMeter.value -= meterRate * Time.unscaledDeltaTime; //I use unscaled time so the rate is consistent
                 yield return null;
             }
 
@@ -113,12 +140,14 @@ public class UI : MonoBehaviour
         {
             while (meter.value < secondaryMeter.value)
             {
-                meter.value += meterRate * Time.deltaTime;
+                meter.value += meterRate * Time.unscaledDeltaTime;
                 yield return null;
             }
 
             meter.value = secondaryMeter.value;
         }
+
+        adjustMeterCoroutineOn = false;
     }
 
     #endregion

@@ -9,7 +9,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b8fa44b55ead3254ba338a80004a77c3, type: 3}
-  m_Name: heal_repairKit
+  m_Script: {fileID: 11500000, guid: a520762158335da479dd5dcf34d52713, type: 3}
+  m_Name: heal_repairkit
   m_EditorClassIdentifier: 
-  amount: 0
+  itemName: Repair Kit
+  price: 30
+  description: Restores 40% TSP
+  type: 3
+  healthPercentAmount: 40
+  energyPercentAmount: 0

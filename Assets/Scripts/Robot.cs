@@ -4,11 +4,17 @@ using UnityEngine;
 
 /* This is the base class for all robots in the game. This includes the player avatar and enemy NPCs */
 
-public abstract class Robot : MonoBehaviour
+public class Robot : MonoBehaviour
 {
-    public float health;       //called TSP in game
-    public float maxHealth;
-    public float energy;       //basically stamina. All actions use energy
-    public float maxEnergy;
+    // Start is called before the first frame update
+    void Start()
+    {
+        
+    }
 
+    // Update is called once per frame
+    void Update()
+    {
+        
+    }
 }
