@@ -13,10 +13,10 @@ public class Player : Robot
     //[SerializeField]Transform weaponTransform;  //used to position weapons in front of the robot. This transform follows the player.
 
     //player stats
-    public float health;       //called TSP in game
-    public float maxHealth;
-    public float energy;       //basically stamina. All actions use energy
-    public float maxEnergy;
+    //public float health;       //called TSP in game
+    //public float maxHealth;
+    //public float energy;       //basically stamina. All actions use energy
+    //public float maxEnergy;
 
 
     //public Shotgun shotgun;         
