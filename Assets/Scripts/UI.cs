@@ -68,7 +68,7 @@ public class UI : MonoBehaviour
 
         //update meters
         //healthMeter.value = player.health / player.maxHealth;
-        energyMeter.value = player.energy / player.maxEnergy;
+        //energyMeter.value = player.energy / player.maxEnergy;
 
         //check if mouse is pointing to something.
         Ray ray;
