@@ -41,11 +41,18 @@ public class Player : Robot
     {
         //rm = RobotMovement.instance;
 
+<<<<<<< HEAD
         //Weapon placement. Each weapon is adjusted to rest in the robot's hands.
         /*shotgun.transform.localPosition = new Vector3(-0.412f,1.2f,-0.574f);
         shotgun.transform.localRotation = Quaternion.Euler(0,-10,0);
         shotgun.gameObject.SetActive(false);
         weaponPickedUp = false;*/
+=======
+        maxHealth = 120;
+        maxEnergy = 80;
+        health = maxHealth;
+        energy = maxEnergy;
+>>>>>>> parent of 7b80c7c (Added energy and durability sliders)
     }
 
    
