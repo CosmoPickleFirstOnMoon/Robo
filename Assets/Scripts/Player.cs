@@ -3,10 +3,15 @@ using System.Collections.Generic;
 using UnityEngine;
 //using UnityEngine.InputSystem;
 
-/*This script contains the player's stats. */
+/*This script handles all controllable actions by the player. */
 
 public class Player : Robot
 {
+    //public Rigidbody rb;
+
+    //all weapons are hidden by default until player selects them. Only one weapon is visible at a time.
+    //[SerializeField]Transform weaponTransform;  //used to position weapons in front of the robot. This transform follows the player.
+
     //player stats
     public float health;       //called TSP in game
     public float maxHealth;
@@ -14,8 +19,9 @@ public class Player : Robot
     public float maxEnergy;
 
 
+    //public Shotgun shotgun;         
+    Vector3 moveDirection;
     public bool weaponPickedUp;
-    [HideInInspector]public bool isHealing;
     //RobotMovement rm;
     public static Player instance;
 
@@ -28,22 +34,18 @@ public class Player : Robot
         }
 
         instance = this;
-
-        //I set up stats here so UI script has access to these values when needed
-        maxHealth = 120;
-        maxEnergy = 80;
-        health = maxHealth;
-        energy = maxEnergy;
     }
 
     // Start is called before the first frame update
     void Start()
     {
+        //rm = RobotMovement.instance;
 
-        /*maxHealth = 120;
-        maxEnergy = 80;
-        health = maxHealth;
-        energy = maxEnergy;*/
+        //Weapon placement. Each weapon is adjusted to rest in the robot's hands.
+        /*shotgun.transform.localPosition = new Vector3(-0.412f,1.2f,-0.574f);
+        shotgun.transform.localRotation = Quaternion.Euler(0,-10,0);
+        shotgun.gameObject.SetActive(false);
+        weaponPickedUp = false;*/
     }
 
    
