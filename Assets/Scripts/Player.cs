@@ -13,6 +13,9 @@ public class Player : Robot
     public float energy;       //basically stamina. All actions use energy
     public float maxEnergy;
 
+    float energyRegenRate;
+    float energyRegenMod;   //controls how fast the energy is restored.
+
 
     public bool weaponPickedUp;
     [HideInInspector]public bool isHealing;
@@ -33,7 +36,7 @@ public class Player : Robot
         maxHealth = 120;
         maxEnergy = 80;
         health = maxHealth;
-        energy = maxEnergy;
+        energy = 0; //maxEnergy;
     }
 
     // Start is called before the first frame update
@@ -44,12 +47,19 @@ public class Player : Robot
         maxEnergy = 80;
         health = maxHealth;
         energy = maxEnergy;*/
+        energyRegenMod = 0.18f;
+        energyRegenRate = maxEnergy * energyRegenMod;    
     }
 
    
     void Update()
     {
-       
+        if (energy < maxEnergy)
+        {
+            energy += energyRegenRate * Time.deltaTime;
+            if (energy > maxEnergy)
+                energy = maxEnergy;
+        }
     }
 
     #region Controls

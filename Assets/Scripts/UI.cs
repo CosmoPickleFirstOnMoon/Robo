@@ -63,11 +63,11 @@ public class UI : MonoBehaviour
     {
         //update player data
         healthValueUI.text = player.health + "/" + player.maxHealth;
-        energyValueUI.text = player.energy + "/" + player.maxEnergy;
+        energyValueUI.text = Mathf.Round(player.energy) + "/" + player.maxEnergy;
 
         //update meters
         //healthMeter.value = player.health / player.maxHealth;
-        //energyMeter.value = player.energy / player.maxEnergy;
+        energyMeter.value = player.energy / player.maxEnergy;
 
         //check if mouse is pointing to something.
         Ray ray;
