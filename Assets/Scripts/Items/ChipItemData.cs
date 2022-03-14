@@ -3,16 +3,17 @@ using System.Collections.Generic;
 using UnityEngine;
 
 //chips add bonuses to stats
-//[CreateAssetMenu(menuName = "Item Effect/Chip", fileName = "chip_")]
-public class Chip : Item
+[CreateAssetMenu(menuName = "Item Data/Chip", fileName = "chip_")]
+public class ChipItemData : ItemData
 {
     bool isEquipped;
     public float health;
     public float energy;
     public float moveSpeed;
+    //public ItemEffect passiveEffect;
 
 
-    /*public override void Equip(Player player)
+    public override void Equip(Player player)
     {
        if (!isEquipped)
        { 
@@ -33,6 +34,6 @@ public class Chip : Item
             player.maxEnergy -= energy;
             isEquipped = false;
        }
-    }*/
+    }
 
 }    
