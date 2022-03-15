@@ -25,14 +25,26 @@ public class UI : MonoBehaviour
     Color healColor;
     Color damageColor;
     Color durabilityDamageColor;
-    Image healthSecondaryColor;
+    [HideInInspector]public Image healthSecondaryColor;
     Image durabilitySecondaryColor;
-    Image energySecondaryColor;
+    [HideInInspector]public Image energySecondaryColor;
 
     //coroutine checks
     bool adjustMeterCoroutineOn;
 
     Player player;
+    public static UI instance;
+
+    void Awake()
+    {
+        if (instance != null && instance != this)
+        {
+            Destroy(gameObject);
+            return;
+        }
+
+        instance = this;
+    }
 
     // Start is called before the first frame update
     void Start()
@@ -67,7 +79,11 @@ public class UI : MonoBehaviour
 
         //update meters
         //healthMeter.value = player.health / player.maxHealth;
-        energyMeter.value = player.energy / player.maxEnergy;
+        if (player.EnergyRegenerating())
+        {
+            energyMeter.value = player.energy / player.maxEnergy;
+            energySecondaryMeter.value = energyMeter.value;
+        }
 
         //check if mouse is pointing to something.
         Ray ray;
@@ -95,7 +111,12 @@ public class UI : MonoBehaviour
 
             healthMeter.value = player.health / player.maxHealth;
             healthSecondaryColor.color = damageColor;
-            StartCoroutine(AdjustMeter(healthMeter, healthSecondaryMeter));
+            StartCoroutine(AdjustMeter(healthMeter, healthSecondaryMeter, healthSecondaryColor, player.health, player.maxHealth));
+
+            player.ReduceEnergy(20);
+            energyMeter.value = player.energy / player.maxEnergy;
+            energySecondaryColor.color = damageColor;
+            StartCoroutine(AdjustMeter(energyMeter, energySecondaryMeter, energySecondaryColor, player.energy, player.maxEnergy));
         }
 
         if (Input.GetKeyDown(KeyCode.RightArrow))
@@ -106,7 +127,14 @@ public class UI : MonoBehaviour
             
             healthSecondaryMeter.value = player.health / player.maxHealth;
             healthSecondaryColor.color = healColor;
-            StartCoroutine(AdjustMeter(healthMeter, healthSecondaryMeter, true));
+            StartCoroutine(AdjustMeter(healthMeter, healthSecondaryMeter, healthSecondaryColor, player.health, player.maxHealth, true));
+
+            player.energy += 20;
+            if (player.energy > player.maxEnergy)
+                player.energy = player.maxEnergy;
+            energySecondaryMeter.value = player.energy / player.maxEnergy;
+            energySecondaryColor.color = healColor;
+            StartCoroutine(AdjustMeter(energyMeter, energySecondaryMeter, energySecondaryColor, player.energy, player.maxEnergy, true));
         }
 
         //coroutine checks
@@ -119,14 +147,23 @@ public class UI : MonoBehaviour
     #region Coroutines
 
     //this coroutine will be used for all sliders.
-    IEnumerator AdjustMeter(Slider meter, Slider secondaryMeter, bool isRecovering = false)
+    public IEnumerator AdjustMeter(Slider meter, Slider secondaryMeter, Image secondaryMeterColor, float currentValue, float maxValue, bool isRecovering = false)
     {
         adjustMeterCoroutineOn = true;
+        Color healColor = new Color(0.3f, 0.9f, 1);               //light blue
+        Color damageColor = new Color(1, 0.76f, 0.05f);           //gold
+        Color durabilityDamageColor = new Color(0.7f, 0.06f, 0);  //dark red
+       
         //a slight delay is added to give player time to see what is happening
-        yield return new WaitForSeconds(1);
+        //yield return new WaitForSeconds(0.5f);
 
         if (!isRecovering)
-        {            
+        {
+            meter.value = currentValue / maxValue;
+            secondaryMeterColor.color = damageColor;            
+            //a slight delay is added to give player time to see what is happening
+            yield return new WaitForSeconds(0.5f);
+
             while (secondaryMeter.value > meter.value)
             {
                 secondaryMeter.value -= meterRate * Time.unscaledDeltaTime; //I use unscaled time so the rate is consistent
@@ -138,6 +175,10 @@ public class UI : MonoBehaviour
         }
         else    //player is recovering
         {
+            secondaryMeter.value = currentValue / maxValue;
+            secondaryMeterColor.color = healColor;
+            yield return new WaitForSeconds(0.5f);
+
             while (meter.value < secondaryMeter.value)
             {
                 meter.value += meterRate * Time.unscaledDeltaTime;

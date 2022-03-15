@@ -17,6 +17,19 @@ public class RobotMovement : MonoBehaviour
     Plane plane = new Plane(Vector3.up, Vector3.zero);
     float distance;
 
+    public static RobotMovement instance;
+
+    void Awake()
+    {
+        if (instance != null && instance != this)
+        {
+            Destroy(gameObject);
+            return;
+        }
+
+        instance = this;
+    }
+
 
     //[SerializeField]
     private Rigidbody rb;
