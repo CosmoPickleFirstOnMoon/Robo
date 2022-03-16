@@ -7,11 +7,11 @@ public class Shotgun : Weapon
     [SerializeField]
     private Transform SpawnPoint;
 
-    private ParticleSystem particles;
+    [SerializeField]
+    private List<ParticleSystem> particles;
     // Start is called before the first frame update
     protected override void Start()
     {
-        particles = GetComponent<ParticleSystem>();
     }
 
     // Update is called once per frame
@@ -20,9 +20,9 @@ public class Shotgun : Weapon
 
     }
 
-    public override void OnFireHold()
+    public override void OnFireDown()
     {
-        particles.Play();
+        particles.ForEach(x=>x.Play());
     }
 
 }
