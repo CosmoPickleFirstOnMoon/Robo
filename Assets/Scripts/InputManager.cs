@@ -16,7 +16,7 @@ public class InputManager : MonoBehaviour
     void Update()
     {
         if (Input.mouseScrollDelta.y != 0)
-            roboto.Loadout.OnMouseWheel(Input.mouseScrollDelta.y > 0 ? 1 : 0);
+            roboto.Loadout.OnMouseWheel(Input.mouseScrollDelta.y > 0 ? 1 : -1);
                 
         if (Input.GetMouseButtonDown(0))
             roboto.Loadout.OnLeftClickDown();
