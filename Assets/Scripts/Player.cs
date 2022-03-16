@@ -46,11 +46,6 @@ public class Player : Robot
     // Start is called before the first frame update
     void Start()
     {
-
-        /*maxHealth = 120;
-        maxEnergy = 80;
-        health = maxHealth;
-        energy = maxEnergy;*/
         rm = RobotMovement.instance;
         energyRegenMod = 0.18f;
         energyRegenRate = maxEnergy * energyRegenMod;
@@ -58,7 +53,6 @@ public class Player : Robot
     }
 
     //Any actions that use up energy will cause the regeneration to be delayed until the action stops.
-    //the value that's returned is the remaining energy
     public void ReduceEnergy(float amount)
     {
         energy -= amount;
