@@ -12,12 +12,15 @@ public class RobotMovement : MonoBehaviour
     [SerializeField]
     Animator animator;
 
-    private Vector3 direction;
+    Vector3 direction;
+    [HideInInspector]public bool isSprinting;       //if true, energy is spent -added by King
     private Vector3 lookDirection;
     Plane plane = new Plane(Vector3.up, Vector3.zero);
     float distance;
 
+    //singletons -added by King
     public static RobotMovement instance;
+    Player player;
 
     void Awake()
     {
@@ -31,19 +34,37 @@ public class RobotMovement : MonoBehaviour
     }
 
 
-    //[SerializeField]
     private Rigidbody rb;
     // Start is called before the first frame update
     void Start()
     {
-        rb = GetComponent<Rigidbody>(); 
+        rb = GetComponent<Rigidbody>();
+        player = Player.instance; 
     }
     private void Update()
     {
         direction = new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical")).normalized;
 
-        if(Input.GetKey(KeyCode.LeftShift))
+        if(Input.GetKey(KeyCode.LeftShift) && player.energy > 0)
+        {           
             direction.z = direction.z > 0 ? direction.z * forwardMultiplier : direction.z;
+
+            //sprint check -added by King
+            if (direction.z > 0)
+            {
+                isSprinting = true;
+            }
+            /*else
+            {
+                isSprinting = false;
+            }*/
+        }
+
+        //added by King
+        if(Input.GetKeyUp(KeyCode.LeftShift))
+        {
+            isSprinting = false;
+        }
 
         animator.SetFloat("FrontMovement", direction.z);
         animator.SetFloat("SideMovement", direction.x);

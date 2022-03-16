@@ -22,9 +22,9 @@ public class UI : MonoBehaviour
     public Slider durabilityMeter;          //yellow colour
     public Slider durabilitySecondaryMeter;    //red colour when damaged, light blue when healing
     [SerializeField]float meterRate;  //used to control the speed of the meter gain/loss
-    Color healColor;
-    Color damageColor;
-    Color durabilityDamageColor;
+    //Color healColor;
+ //   Color damageColor;
+//    Color durabilityDamageColor;
     [HideInInspector]public Image healthSecondaryColor;
     Image durabilitySecondaryColor;
     [HideInInspector]public Image energySecondaryColor;
@@ -61,9 +61,9 @@ public class UI : MonoBehaviour
         energyMeter.value = player.energy / player.maxEnergy;
         energySecondaryMeter.value = energyMeter.value;
         
-        healColor = new Color(0.3f, 0.9f, 1);               //light blue
-        damageColor = new Color(1, 0.76f, 0.05f);           //gold
-        durabilityDamageColor = new Color(0.7f, 0.06f, 0);  //dark red
+        //healColor = new Color(0.3f, 0.9f, 1);               //light blue
+        //damageColor = new Color(1, 0.76f, 0.05f);           //gold
+        //durabilityDamageColor = new Color(0.7f, 0.06f, 0);  //dark red
         meterRate = 0.3f;
         healthSecondaryColor = healthSecondaryMeter.fillRect.GetComponent<Image>();
         energySecondaryColor = energySecondaryMeter.fillRect.GetComponent<Image>();
@@ -79,11 +79,13 @@ public class UI : MonoBehaviour
 
         //update meters
         //healthMeter.value = player.health / player.maxHealth;
-        if (player.EnergyRegenerating())
-        {
+        //if (player.EnergyRegenerating())
+        //{
             energyMeter.value = player.energy / player.maxEnergy;
-            energySecondaryMeter.value = energyMeter.value;
-        }
+
+            if (!adjustMeterCoroutineOn)
+                energySecondaryMeter.value = energyMeter.value;
+        //}
 
         //check if mouse is pointing to something.
         Ray ray;
@@ -109,31 +111,31 @@ public class UI : MonoBehaviour
             if (player.health < 0)
                 player.health = 0;
 
-            healthMeter.value = player.health / player.maxHealth;
-            healthSecondaryColor.color = damageColor;
+            //healthMeter.value = player.health / player.maxHealth;
+            //healthSecondaryColor.color = damageColor;
             StartCoroutine(AdjustMeter(healthMeter, healthSecondaryMeter, healthSecondaryColor, player.health, player.maxHealth));
 
             player.ReduceEnergy(20);
-            energyMeter.value = player.energy / player.maxEnergy;
-            energySecondaryColor.color = damageColor;
+            //energyMeter.value = player.energy / player.maxEnergy;
+            //energySecondaryColor.color = damageColor;
             StartCoroutine(AdjustMeter(energyMeter, energySecondaryMeter, energySecondaryColor, player.energy, player.maxEnergy));
         }
 
         if (Input.GetKeyDown(KeyCode.RightArrow))
         {
-            player.health += 20;
+            player.health += 50;
             if (player.health > player.maxHealth)
                 player.health = player.maxHealth;
             
-            healthSecondaryMeter.value = player.health / player.maxHealth;
-            healthSecondaryColor.color = healColor;
+            //healthSecondaryMeter.value = player.health / player.maxHealth;
+            //healthSecondaryColor.color = healColor;
             StartCoroutine(AdjustMeter(healthMeter, healthSecondaryMeter, healthSecondaryColor, player.health, player.maxHealth, true));
 
             player.energy += 20;
             if (player.energy > player.maxEnergy)
                 player.energy = player.maxEnergy;
-            energySecondaryMeter.value = player.energy / player.maxEnergy;
-            energySecondaryColor.color = healColor;
+            //energySecondaryMeter.value = player.energy / player.maxEnergy;
+            //energySecondaryColor.color = healColor;
             StartCoroutine(AdjustMeter(energyMeter, energySecondaryMeter, energySecondaryColor, player.energy, player.maxEnergy, true));
         }
 
@@ -153,16 +155,13 @@ public class UI : MonoBehaviour
         Color healColor = new Color(0.3f, 0.9f, 1);               //light blue
         Color damageColor = new Color(1, 0.76f, 0.05f);           //gold
         Color durabilityDamageColor = new Color(0.7f, 0.06f, 0);  //dark red
-       
-        //a slight delay is added to give player time to see what is happening
-        //yield return new WaitForSeconds(0.5f);
 
         if (!isRecovering)
         {
-            meter.value = currentValue / maxValue;
+            secondaryMeter.value = meter.value;
+            meter.value = currentValue / maxValue;              //show the portion that is being removed
             secondaryMeterColor.color = damageColor;            
-            //a slight delay is added to give player time to see what is happening
-            yield return new WaitForSeconds(0.5f);
+            yield return new WaitForSeconds(0.5f);             //a slight delay is added to give player time to see what is happening
 
             while (secondaryMeter.value > meter.value)
             {
@@ -175,7 +174,8 @@ public class UI : MonoBehaviour
         }
         else    //player is recovering
         {
-            secondaryMeter.value = currentValue / maxValue;
+            meter.value = secondaryMeter.value;
+            secondaryMeter.value = currentValue / maxValue; //show the portion that is being recovered
             secondaryMeterColor.color = healColor;
             yield return new WaitForSeconds(0.5f);
 

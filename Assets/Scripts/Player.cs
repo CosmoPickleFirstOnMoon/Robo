@@ -58,6 +58,7 @@ public class Player : Robot
     }
 
     //Any actions that use up energy will cause the regeneration to be delayed until the action stops.
+    //the value that's returned is the remaining energy
     public void ReduceEnergy(float amount)
     {
         energy -= amount;
@@ -82,6 +83,11 @@ public class Player : Robot
             energy += energyRegenRate * Time.deltaTime;
             if (energy > maxEnergy)
                 energy = maxEnergy;
+        }
+
+        if (rm.isSprinting)
+        {
+            ReduceEnergy(10 * Time.deltaTime);
         }
     }
 
