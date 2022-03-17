@@ -12,7 +12,7 @@ public class GameManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        itemManager = ItemManager.instance;
+        /*itemManager = ItemManager.instance;
         itemManager.itemObjects = new Item[itemManager.itemData.Length];
 
         //item set up
@@ -27,7 +27,7 @@ public class GameManager : MonoBehaviour
         }
 
         Vector3 itemPos = itemManager.itemObjects[1].transform.position;
-        itemManager.itemObjects[1].transform.position = new Vector3(itemPos.x - 3, itemPos.y, itemPos.z);
+        itemManager.itemObjects[1].transform.position = new Vector3(itemPos.x - 3, itemPos.y, itemPos.z);*/
     }
 
     // Update is called once per frame
