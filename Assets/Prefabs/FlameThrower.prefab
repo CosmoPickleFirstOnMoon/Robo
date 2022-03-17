@@ -740,6 +740,7 @@ MonoBehaviour:
   - {fileID: 5578216871236619445}
   - {fileID: 5578216871236661497}
   - {fileID: 5578216871236713601}
+  detector: {fileID: 564350155513866758}
 --- !u!1 &6411823711109182244
 GameObject:
   m_ObjectHideFlags: 0
@@ -1039,7 +1040,23 @@ PrefabInstance:
       value: -90
       objectReference: {fileID: 0}
     - target: {fileID: 19812580, guid: 930214d9daabb5c48bae128de8048b65, type: 3}
+      propertyPath: playOnAwake
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 19812580, guid: 930214d9daabb5c48bae128de8048b65, type: 3}
       propertyPath: moveWithTransform
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 19812580, guid: 930214d9daabb5c48bae128de8048b65, type: 3}
+      propertyPath: TriggerModule.enter
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 19812580, guid: 930214d9daabb5c48bae128de8048b65, type: 3}
+      propertyPath: TriggerModule.inside
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 19812580, guid: 930214d9daabb5c48bae128de8048b65, type: 3}
+      propertyPath: TriggerModule.enabled
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 19812580, guid: 930214d9daabb5c48bae128de8048b65, type: 3}
@@ -1059,6 +1076,10 @@ PrefabInstance:
       value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 19812580, guid: 930214d9daabb5c48bae128de8048b65, type: 3}
+      propertyPath: TriggerModule.primitives.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 19812580, guid: 930214d9daabb5c48bae128de8048b65, type: 3}
       propertyPath: InitialModule.startSizeY.minMaxState
       value: 3
       objectReference: {fileID: 0}
@@ -1067,6 +1088,10 @@ PrefabInstance:
       value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 19812580, guid: 930214d9daabb5c48bae128de8048b65, type: 3}
+      propertyPath: TriggerModule.primitives.Array.data[0]
+      value: 
+      objectReference: {fileID: 6688757973514533483}
+    - target: {fileID: 19812580, guid: 930214d9daabb5c48bae128de8048b65, type: 3}
       propertyPath: InitialModule.startRotationX.minMaxState
       value: 3
       objectReference: {fileID: 0}
@@ -1075,6 +1100,10 @@ PrefabInstance:
       value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 19819340, guid: 930214d9daabb5c48bae128de8048b65, type: 3}
+      propertyPath: playOnAwake
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 19819340, guid: 930214d9daabb5c48bae128de8048b65, type: 3}
       propertyPath: moveWithTransform
       value: 1
       objectReference: {fileID: 0}
@@ -1095,6 +1124,10 @@ PrefabInstance:
       value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 19867444, guid: 930214d9daabb5c48bae128de8048b65, type: 3}
+      propertyPath: playOnAwake
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 19867444, guid: 930214d9daabb5c48bae128de8048b65, type: 3}
       propertyPath: moveWithTransform
       value: 1
       objectReference: {fileID: 0}
@@ -1113,6 +1146,10 @@ PrefabInstance:
     - target: {fileID: 19867444, guid: 930214d9daabb5c48bae128de8048b65, type: 3}
       propertyPath: InitialModule.startRotationY.minMaxState
       value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 19897208, guid: 930214d9daabb5c48bae128de8048b65, type: 3}
+      propertyPath: playOnAwake
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 19897208, guid: 930214d9daabb5c48bae128de8048b65, type: 3}
       propertyPath: moveWithTransform
@@ -1148,9 +1185,9 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 930214d9daabb5c48bae128de8048b65, type: 3}
---- !u!4 &5578216871251897335 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 441402, guid: 930214d9daabb5c48bae128de8048b65, type: 3}
+--- !u!1 &5578216871251643937 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 154092, guid: 930214d9daabb5c48bae128de8048b65, type: 3}
   m_PrefabInstance: {fileID: 5578216871251531725}
   m_PrefabAsset: {fileID: 0}
 --- !u!198 &5578216871236699945 stripped
@@ -1173,3 +1210,20 @@ ParticleSystem:
   m_CorrespondingSourceObject: {fileID: 19819340, guid: 930214d9daabb5c48bae128de8048b65, type: 3}
   m_PrefabInstance: {fileID: 5578216871251531725}
   m_PrefabAsset: {fileID: 0}
+--- !u!4 &5578216871251897335 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 441402, guid: 930214d9daabb5c48bae128de8048b65, type: 3}
+  m_PrefabInstance: {fileID: 5578216871251531725}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &564350155513866758
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5578216871251643937}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: af22f97c7bcb1a74eb0fbc6e9540c62e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
