@@ -20,7 +20,7 @@ public class HealingItemData : ItemData
         if (healthAmount > 0)
         {
             player.health += healthAmount;
-            ui.StartCoroutine(ui.AdjustMeter(ui.healthMeter, ui.healthSecondaryMeter, ui.healthSecondaryColor, player.health, player.maxHealth, true));
+            ui.ChangeHealthMeter(true);
             if (player.health > player.maxHealth)
                 player.health = player.maxHealth;
             Debug.Log(healthAmount + " health restored");
@@ -29,7 +29,7 @@ public class HealingItemData : ItemData
         if (energyAmount > 0)
         {
             player.energy += energyAmount;
-            ui.StartCoroutine(ui.AdjustMeter(ui.energyMeter, ui.energySecondaryMeter, ui.energySecondaryColor, player.energy, player.maxEnergy, true));
+            ui.ChangeEnergyMeter(true);
             if (player.energy > player.maxEnergy)
                 player.energy = player.maxEnergy;
             Debug.Log(energyAmount + " energy restored");

@@ -64,6 +64,17 @@ public class Player : Robot
         currentTime = Time.time;
     }
 
+    public void TakeDamage(float amount)
+    {
+        health -= amount;
+        if (health < 0)
+            health = 0;
+        
+        //update UI
+        UI ui = UI.instance;
+        ui.StartCoroutine(ui.AdjustMeter(ui.healthMeter, ui.healthSecondaryMeter, ui.healthSecondaryColor, health, maxHealth));
+    }
+
     public bool EnergyRegenerating()
     {
         return Time.time > currentTime + energyRegenDelayDuration;
