@@ -77,7 +77,7 @@ public class UI : MonoBehaviour
         healthValueUI.text = player.health + "/" + player.maxHealth;
         energyValueUI.text = Mathf.Round(player.energy) + "/" + player.maxEnergy;
 
-        //update meters
+        //update meters     
         //healthMeter.value = player.health / player.maxHealth;
         //if (player.EnergyRegenerating())
         //{
@@ -145,6 +145,26 @@ public class UI : MonoBehaviour
             StartCoroutine(AdjustMeter(healthMeter, healthSecondaryMeter));
         }*/
     }
+
+    public void ChangeHealthMeter(bool healing = false)
+    {
+        if (!healing)
+            StartCoroutine(AdjustMeter(healthMeter, healthSecondaryMeter, healthSecondaryColor, player.health, player.maxHealth));
+        else
+            StartCoroutine(AdjustMeter(healthMeter, healthSecondaryMeter, healthSecondaryColor, player.health, player.maxHealth, true));
+    }
+
+    public void ChangeEnergyMeter(bool healing = false)
+    {
+        if (!healing)
+            StartCoroutine(AdjustMeter(energyMeter, energySecondaryMeter, energySecondaryColor, player.energy, player.maxEnergy));
+        else
+            StartCoroutine(AdjustMeter(energyMeter, energySecondaryMeter, energySecondaryColor, player.energy, player.maxEnergy, true));
+    }
+
+
+
+
 
     #region Coroutines
 

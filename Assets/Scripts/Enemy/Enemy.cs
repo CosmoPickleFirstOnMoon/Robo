@@ -5,7 +5,7 @@ using UnityEngine;
 /* Base class for all enemies in the game. All enemies should derive from this class */
 public class Enemy : Robot
 {
-    Player player;
+    protected Player player;
 
     public EnemyData data;          //enemy object must have this scriptable object attached
     public string enemyName;
