@@ -7,6 +7,10 @@ using UnityEngine;
 
 public class Robot : MonoBehaviour
 {
+    public float health;       //called TSP in game
+    public float maxHealth;
+    public float energy;       //basically stamina. Most actions use energy
+    public float maxEnergy;
     public RobotMovement Movement { get; protected set; }
     public WeaponLoadout Loadout { get; protected set; }
     // Start is called before the first frame update

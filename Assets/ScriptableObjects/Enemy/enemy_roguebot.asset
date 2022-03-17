@@ -1,0 +1,27 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 13dbdd327b5c1e64984b533bc48bd566, type: 3}
+  m_Name: enemy_roguebot
+  m_EditorClassIdentifier: 
+  enemyName: Rogue Bot
+  description: Robot who forgot its original programming, and will attack anything
+    in sight. First rule of robotics does not apply!
+  health: 50
+  energy: 0
+  moveSpeed: 10
+  attackPower: 15
+  defensePower: 1
+  scrapAmount: 10
+  commonItem: {fileID: 0}
+  rareItem: {fileID: 0}
+  commonItemDropRate: 0.5
+  rareItemDropRate: 0

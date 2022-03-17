@@ -8,10 +8,10 @@ using UnityEngine;
 public class Player : Robot
 {
     [Header("Player stats")]
-    public float health;       //called TSP in game
-    public float maxHealth;
-    public float energy;       //basically stamina. Most actions use energy
-    public float maxEnergy;
+    //public float health;       //called TSP in game
+    //public float maxHealth;
+    //public float energy;       //basically stamina. Most actions use energy
+    //public float maxEnergy;
 
     float energyRegenRate;
     float energyRegenMod;           //controls how fast the energy is restored.
@@ -83,6 +83,12 @@ public class Player : Robot
         {
             ReduceEnergy(10 * Time.deltaTime);
         }
+    }
+
+    void OnCollisionEnter(Collision target)
+    {
+        //Enemy enemy = target.gameObject.GetComponent<Enemy>();
+        //health -= enemy.attackPower;
     }
 
 }
