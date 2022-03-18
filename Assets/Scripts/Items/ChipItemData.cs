@@ -10,7 +10,9 @@ public class ChipItemData : ItemData
     public float health;
     public float energy;
     public float moveSpeed;
-    //public ItemEffect passiveEffect;
+    public Skill passiveSkill;   //if a chip has a skill, it becomes active.
+
+
 
 
     public override void Equip(Player player)

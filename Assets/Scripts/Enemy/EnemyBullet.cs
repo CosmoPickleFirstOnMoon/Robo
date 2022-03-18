@@ -60,11 +60,8 @@ public class EnemyBullet : MonoBehaviour
     {
         if (target.CompareTag("Player"))
         {
-            //damage player
-            player.health -= damage;
-            UI ui = UI.instance;
-            ui.ChangeHealthMeter();
-            Destroy(gameObject);
+            player.TakeDamage(damage);
+            Destroy(gameObject);            //TODO: Hide this object instead and reuse it
             Debug.Log("player hit");
         }
     }

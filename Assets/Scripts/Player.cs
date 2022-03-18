@@ -62,6 +62,10 @@ public class Player : Robot
         
         //start the delay
         currentTime = Time.time;
+
+        //update UI
+        UI ui = UI.instance;
+        ui.ChangeEnergyMeter();
     }
 
     public void TakeDamage(float amount)
@@ -72,7 +76,7 @@ public class Player : Robot
         
         //update UI
         UI ui = UI.instance;
-        ui.StartCoroutine(ui.AdjustMeter(ui.healthMeter, ui.healthSecondaryMeter, ui.healthSecondaryColor, health, maxHealth));
+        ui.ChangeHealthMeter();
     }
 
     public bool EnergyRegenerating()

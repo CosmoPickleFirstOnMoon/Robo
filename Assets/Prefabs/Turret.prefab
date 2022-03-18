@@ -124,4 +124,5 @@ MonoBehaviour:
   rareItem: {fileID: 0}
   commonItemDropRate: 0
   rareItemDropRate: 0
+  alarmSkill: {fileID: 11400000, guid: 2d2cd767568fb9e4484fa7fa78caea05, type: 2}
   bulletPrefab: {fileID: 0}
