@@ -18,6 +18,21 @@ public class Player : Robot
     float energyRegenDelayDuration; //time is in seconds
     float currentTime;
 
+    //mods affect both the player and their equipped weapon's performance. By default, they have no effect until modules/chips are equipped.
+    [Header("Mods")]
+    public float energyMod;          //used to reduce energy spending
+    public float moveSpeedMod;       //increases walk speed
+    public float reloadSpeedMod;
+    public float fireRateMod;
+    public float bulletSpreadMod;
+    public float gunDamageMod;
+    public float meleeDamageMod;
+    public float blockEfficiencyMod;   //reduces damage taken while blocking
+
+    [Header("Modules")]
+    [SerializeField]Module[] modules;               //3 modules: 2 arm, 1 leg
+    int maxModules {get;} = 3;
+
 
     public bool weaponPickedUp;
     [HideInInspector]public bool isHealing;
@@ -49,7 +64,8 @@ public class Player : Robot
         rm = RobotMovement.instance;
         energyRegenMod = 0.18f;
         energyRegenRate = maxEnergy * energyRegenMod;
-        energyRegenDelayDuration = 1.5f;    
+        energyRegenDelayDuration = 1.5f;
+        modules = new Module[maxModules];    
     }
 
     //Any actions that use up energy will cause the regeneration to be delayed until the action stops.
@@ -62,6 +78,10 @@ public class Player : Robot
         
         //start the delay
         currentTime = Time.time;
+
+        //update UI
+        UI ui = UI.instance;
+        ui.ChangeEnergyMeter();
     }
 
     public void TakeDamage(float amount)
@@ -72,7 +92,7 @@ public class Player : Robot
         
         //update UI
         UI ui = UI.instance;
-        ui.StartCoroutine(ui.AdjustMeter(ui.healthMeter, ui.healthSecondaryMeter, ui.healthSecondaryColor, health, maxHealth));
+        ui.ChangeHealthMeter();
     }
 
     public bool EnergyRegenerating()

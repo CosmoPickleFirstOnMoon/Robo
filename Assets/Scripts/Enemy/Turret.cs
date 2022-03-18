@@ -9,6 +9,8 @@ public class Turret : Enemy
     float currentTime;
     float minRange = 6;
 
+    [SerializeField]Alarm alarmSkill;
+
     [SerializeField]EnemyBullet bulletPrefab;
     EnemyBullet bullet;
     // Update is called once per frame
@@ -19,6 +21,7 @@ public class Turret : Enemy
         if (attackRange < minRange && CanFire())
         {
             Debug.Log("attacking");
+            alarmSkill.Activate();
             bullet = Instantiate(bulletPrefab, transform.position, Quaternion.identity);
             bullet.transform.parent = transform;    //need this step to acquire enemy data that can be passed on to bullet
             currentTime = Time.time;

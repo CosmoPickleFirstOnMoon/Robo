@@ -3,10 +3,15 @@ using System.Collections.Generic;
 using UnityEngine;
 
 //chips add bonuses to stats
-//[CreateAssetMenu(menuName = "Item Effect/Chip", fileName = "chip_")]
-public class Chip : Item
+[CreateAssetMenu(menuName = "Item Data/Chip", fileName = "chip_")]
+public class ChipData : ItemData
 {
-    protected bool isEquipped;
+    //protected bool isEquipped;
+    //public float health;
+    //public float energy;
+    //public float moveSpeed;
+    //public Skill passiveSkill;   //if a chip has a skill, it becomes active.
+
     public float energyMod;      //used to reduce energy spending
     public float moveSpeedMod;       //increases speed
     public float reloadSpeedMod;
@@ -16,12 +21,10 @@ public class Chip : Item
     public float meleeDamageMod;
     public float blockEfficiencyMod;   //reduces damage taken while blocking
 
-    protected void Start()
-    {
-       
-    }
 
-    public override void Equip(Player player)
+
+
+    /*public override void Equip(Player player)
     {
        if (!isEquipped)
        { 
@@ -53,6 +56,6 @@ public class Chip : Item
 
             isEquipped = false;
        }
-    }
+    }*/
 
 }    

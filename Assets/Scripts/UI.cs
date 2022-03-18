@@ -162,7 +162,15 @@ public class UI : MonoBehaviour
             StartCoroutine(AdjustMeter(energyMeter, energySecondaryMeter, energySecondaryColor, player.energy, player.maxEnergy, true));
     }
 
-
+    //this is used for when sliders need to be updated after equipping/removing items
+    public void UpdateMeters()
+    {
+        healthMeter.value = player.health / player.maxHealth;
+        healthSecondaryMeter.value = healthMeter.value;
+        energyMeter.value = player.energy / player.maxEnergy;
+        energySecondaryMeter.value = energyMeter.value;
+        //TODO: add update for durability meter
+    }
 
 
 
