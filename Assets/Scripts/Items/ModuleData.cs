@@ -2,18 +2,14 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-//chips add bonuses to stats
-[CreateAssetMenu(menuName = "Item Data/Chip", fileName = "chip_")]
-public class ChipItemData : ItemData
+[CreateAssetMenu(menuName = "Item/Module", fileName = "mod_")]
+public class ModuleData : ItemData
 {
-    bool isEquipped;
+    protected bool isEquipped;
     public float health;
     public float energy;
     public float moveSpeed;
-    public Skill passiveSkill;   //if a chip has a skill, it becomes active.
-
-
-
+    public Skill passiveSkill;   //must run in Player.cs update loop
 
     public override void Equip(Player player)
     {
@@ -37,5 +33,4 @@ public class ChipItemData : ItemData
             isEquipped = false;
        }
     }
-
-}    
+}

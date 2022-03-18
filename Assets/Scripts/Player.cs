@@ -18,6 +18,17 @@ public class Player : Robot
     float energyRegenDelayDuration; //time is in seconds
     float currentTime;
 
+    //mods affect both the player and their equipped weapon's performance. By default, they have no effect until modules/chips are equipped.
+    [Header("Mods")]
+    public float energyMod;          //used to reduce energy spending
+    public float moveSpeedMod;       //increases walk speed
+    public float reloadSpeedMod;
+    public float fireRateMod;
+    public float bulletSpreadMod;
+    public float gunDamageMod;
+    public float meleeDamageMod;
+    public float blockEfficiencyMod;   //reduces damage taken while blocking
+
 
     public bool weaponPickedUp;
     [HideInInspector]public bool isHealing;
