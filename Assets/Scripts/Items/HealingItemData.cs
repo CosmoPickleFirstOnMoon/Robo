@@ -11,7 +11,7 @@ public class HealingItemData : ItemData
 
     UI ui;      //need this to access the meters.
   
-    public override void Activate(Player player)
+    /*public override void Activate(Player player)
     {
         ui = UI.instance;
         float healthAmount = player.maxHealth * (healthPercentAmount / 100);
@@ -35,5 +35,5 @@ public class HealingItemData : ItemData
             Debug.Log(energyAmount + " energy restored");
         }
 
-    }
+    }*/
 }

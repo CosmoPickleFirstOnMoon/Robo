@@ -29,6 +29,10 @@ public class Player : Robot
     public float meleeDamageMod;
     public float blockEfficiencyMod;   //reduces damage taken while blocking
 
+    [Header("Modules")]
+    [SerializeField]Module[] modules;               //3 modules: 2 arm, 1 leg
+    int maxModules {get;} = 3;
+
 
     public bool weaponPickedUp;
     [HideInInspector]public bool isHealing;
@@ -60,7 +64,8 @@ public class Player : Robot
         rm = RobotMovement.instance;
         energyRegenMod = 0.18f;
         energyRegenRate = maxEnergy * energyRegenMod;
-        energyRegenDelayDuration = 1.5f;    
+        energyRegenDelayDuration = 1.5f;
+        modules = new Module[maxModules];    
     }
 
     //Any actions that use up energy will cause the regeneration to be delayed until the action stops.

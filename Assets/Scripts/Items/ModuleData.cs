@@ -2,16 +2,16 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu(menuName = "Item/Module", fileName = "mod_")]
+[CreateAssetMenu(menuName = "Item Data/Module", fileName = "module_")]
 public class ModuleData : ItemData
 {
-    protected bool isEquipped;
+    //protected bool isEquipped;
     public float health;
     public float energy;
     public float moveSpeed;
     public Skill passiveSkill;   //must run in Player.cs update loop
 
-    public override void Equip(Player player)
+    /*public override void Equip(Player player)
     {
        if (!isEquipped)
        { 
@@ -32,5 +32,5 @@ public class ModuleData : ItemData
             player.maxEnergy -= energy;
             isEquipped = false;
        }
-    }
+    }*/
 }

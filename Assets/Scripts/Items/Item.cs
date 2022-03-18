@@ -16,14 +16,9 @@ public class Item : MonoBehaviour
 
     //public ItemEffect effect;   //occurs when item is touched upon contact, or is equipped.
     //public ItemData itemEffect;
-    public ItemData data;
+    //public ItemData data;
 
     float rotation;
-
-    protected void Start()
-    {
-
-    }
 
     void Update()
     {
@@ -35,7 +30,7 @@ public class Item : MonoBehaviour
         transform.rotation = Quaternion.Euler(0, rotation, 0);
     }
 
-    void OnTriggerEnter(Collider target)
+    protected virtual void OnTriggerEnter(Collider target)
     {
         if (target.CompareTag("Player"))
         {
@@ -45,4 +40,9 @@ public class Item : MonoBehaviour
             Destroy(gameObject);    //TODO: need to instead hide gameobject and destroy it later.
         }
     }
+
+    public virtual void Activate(Player player){}   //this is for one-time effects, such as healing.
+    public virtual void Equip(Player player){}
+    public virtual void Unequip(Player player){}
+    public virtual void PassiveEffect(Player player){}
 }
