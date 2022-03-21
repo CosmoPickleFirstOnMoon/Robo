@@ -64,6 +64,7 @@ MonoBehaviour:
   itemIcons:
   - {fileID: 7946805314438587484}
   - {fileID: 2051444045040542142}
+  availableSlotID: 0
 --- !u!1 &245174785
 GameObject:
   m_ObjectHideFlags: 0
@@ -1345,6 +1346,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isEmpty: 0
   slotID: 0
+  item: {fileID: 0}
+  icon: {fileID: 7946805314438587484}
 --- !u!114 &1748492045163127413
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3147,6 +3150,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isEmpty: 0
   slotID: 1
+  item: {fileID: 0}
+  icon: {fileID: 2051444045040542142}
 --- !u!114 &6518702059398065707
 MonoBehaviour:
   m_ObjectHideFlags: 0

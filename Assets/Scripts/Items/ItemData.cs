@@ -16,7 +16,7 @@ public abstract class ItemData : ScriptableObject
     }
 
     public ItemType type;
-    public Sprite icon;     //this appears in UI and the inventory.
+    public Sprite iconSprite;     //this appears in UI and the inventory.
 
     public virtual void Activate(Player player){}   //this is for one-time effects, such as healing.
     public virtual void Equip(Player player){}

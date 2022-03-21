@@ -13,11 +13,12 @@ public class Inventory : MonoBehaviour
     Vector3 initPos;                    //original position. Container is offscreen, and tab is visible.
     bool animateInventoryCoroutineOn;
 
-    [SerializeField]ItemData[] items;
+    //[SerializeField]ItemData[] items;
     [SerializeField]ItemSlot[] itemSlots;
-    [SerializeField]Image[] itemIcons;
+    //[SerializeField]Image[] itemIcons;
     int maxItems {get;} = 2;
-    int currentEmptySlot;           //points to an available slot.
+    //int currentEmptySlot;           //points to an available slot.
+    public int availableSlotID;
 
     public static Inventory instance;
 
@@ -40,7 +41,8 @@ public class Inventory : MonoBehaviour
         initPos = transform.position;
         //items = new Item[maxItems];
         //itemSlots = new Image[maxItems];
-        currentEmptySlot = 0;
+        //currentEmptySlot = 0;
+        availableSlotID = -1;
     }
 
     // Update is called once per frame
@@ -60,28 +62,42 @@ public class Inventory : MonoBehaviour
         }
     }
 
-    public void AddItem(ItemData item)
+    public bool SpaceAvailable()
     {
-        if (currentEmptySlot >= items.Length)   //no more space
+        int i = 0;
+        bool emptySlotFound = false;
+        while (!emptySlotFound && i < itemSlots.Length)
         {
-            Debug.Log("No more space! Drop an item");
-            return;
+            if (itemSlots[i].isEmpty)
+            {
+                emptySlotFound = true;
+                availableSlotID = i;
+            }
+            else
+            {
+                i++;
+                availableSlotID = -1;
+            }
         }
 
-        items[currentEmptySlot] = item;
-        //itemSlots[currentEmptySlot].GetComponentInChildren<Image>().sprite = item.icon;
-        itemIcons[currentEmptySlot].sprite = item.icon;
-        currentEmptySlot++;
+        return emptySlotFound;
+
     }
 
-    //use an item in the inventory when it's clicked. The result depends on the item type.
-    public void UseItem()
+    public void AddItem(ItemData item, int slotID)
     {
-        //which slot was clicked?
-        Debug.Log("Button clicked");
-    
+         if (slotID < 0 || slotID >= itemSlots.Length)
+         {
+            Debug.Log("Slot ID not valid");
+            return;
+         }
+
+         itemSlots[slotID].item = item;
+         itemSlots[slotID].isEmpty = false;
+         itemSlots[slotID].icon.sprite = item.iconSprite;      
     }
 
+   
     //coroutine functions differently depending on inventory state
     IEnumerator AnimateInventory()
     {
