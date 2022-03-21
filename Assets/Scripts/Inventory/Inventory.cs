@@ -9,21 +9,44 @@ public class Inventory : MonoBehaviour
     [SerializeField]Button tabButton;   //open/close the inventory
     [SerializeField]Image container;    //holds all acquired items
     [SerializeField]Transform restPosition; //when inventory is opened, the game object travels to this transform.
-    bool isOpened;
+    [HideInInspector]public bool isOpened;
     Vector3 initPos;                    //original position. Container is offscreen, and tab is visible.
     bool animateInventoryCoroutineOn;
+
+    [SerializeField]ItemData[] items;
+    [SerializeField]ItemSlot[] itemSlots;
+    [SerializeField]Image[] itemIcons;
+    int maxItems {get;} = 2;
+    int currentEmptySlot;           //points to an available slot.
+
+    public static Inventory instance;
+
+    void Awake()
+    {
+        if (instance != null && instance != this)
+        {
+            Destroy(gameObject);
+            return;
+        }
+
+        instance = this;
+
+    }
     
 
     // Start is called before the first frame update
     void Start()
     {
         initPos = transform.position;
+        //items = new Item[maxItems];
+        //itemSlots = new Image[maxItems];
+        currentEmptySlot = 0;
     }
 
     // Update is called once per frame
     void Update()
     {
-      
+        //when an item is clicked, perform an action based on the item type.
     }
 
     //This method is triggered when tab button is clicked.
@@ -35,6 +58,28 @@ public class Inventory : MonoBehaviour
         {
             StartCoroutine(AnimateInventory());
         }
+    }
+
+    public void AddItem(ItemData item)
+    {
+        if (currentEmptySlot >= items.Length)   //no more space
+        {
+            Debug.Log("No more space! Drop an item");
+            return;
+        }
+
+        items[currentEmptySlot] = item;
+        //itemSlots[currentEmptySlot].GetComponentInChildren<Image>().sprite = item.icon;
+        itemIcons[currentEmptySlot].sprite = item.icon;
+        currentEmptySlot++;
+    }
+
+    //use an item in the inventory when it's clicked. The result depends on the item type.
+    public void UseItem()
+    {
+        //which slot was clicked?
+        Debug.Log("Button clicked");
+    
     }
 
     //coroutine functions differently depending on inventory state

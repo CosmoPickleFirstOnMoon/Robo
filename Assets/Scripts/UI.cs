@@ -151,7 +151,7 @@ public class UI : MonoBehaviour
         if (!healing)
             StartCoroutine(AdjustMeter(healthMeter, healthSecondaryMeter, healthSecondaryColor, player.health, player.maxHealth));
         else
-            StartCoroutine(AdjustMeter(healthMeter, healthSecondaryMeter, healthSecondaryColor, player.health, player.maxHealth, true));
+            StartCoroutine(AdjustMeter(healthMeter, healthSecondaryMeter, healthSecondaryColor, player.health, player.maxHealth, isRecovering: true));
     }
 
     public void ChangeEnergyMeter(bool healing = false)
@@ -159,7 +159,7 @@ public class UI : MonoBehaviour
         if (!healing)
             StartCoroutine(AdjustMeter(energyMeter, energySecondaryMeter, energySecondaryColor, player.energy, player.maxEnergy));
         else
-            StartCoroutine(AdjustMeter(energyMeter, energySecondaryMeter, energySecondaryColor, player.energy, player.maxEnergy, true));
+            StartCoroutine(AdjustMeter(energyMeter, energySecondaryMeter, energySecondaryColor, player.energy, player.maxEnergy, isRecovering: true));
     }
 
     //this is used for when sliders need to be updated after equipping/removing items

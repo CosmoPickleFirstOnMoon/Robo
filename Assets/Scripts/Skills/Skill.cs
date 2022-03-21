@@ -12,9 +12,9 @@ public abstract class Skill : ScriptableObject
     public float energyCost;    //this doesn't apply if a skill is passive
     public bool isPassive;      //if true, skill is always active and has no energy cost.
 
-    public virtual void Activate(Player skillUser, Enemy target) {}
-    public virtual void Activate(Enemy skillUser, Player target) {}
+    public virtual void Activate(Player skillUser, Enemy target = null) {}
+    public virtual void Activate(Enemy skillUser, Player target = null) {}
     public virtual void Activate() {}
-    public virtual void Activate(Player target) {}
-    public virtual void Activate(Enemy target) {}
+    //public virtual void Activate(Player target) {}
+    //public virtual void Activate(Enemy target) {}
 }

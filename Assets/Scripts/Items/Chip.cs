@@ -21,7 +21,7 @@ public class Chip : Item
        
     }
 
-    public override void Equip(Player player)
+    /*public override void Equip(Player player)
     {
        if (!isEquipped)
        { 
@@ -53,6 +53,6 @@ public class Chip : Item
 
             isEquipped = false;
        }
-    }
+    }*/
 
 }    
