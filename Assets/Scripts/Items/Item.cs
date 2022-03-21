@@ -4,11 +4,13 @@ using UnityEngine;
 using TMPro;
 
 /* Base class for all non-weapon consumable items. The items can be picked up in game. A separate script will handle the item effects */
-public class Item : MonoBehaviour
+public abstract class Item : MonoBehaviour
 {
     public string itemName;
     public int price;           //amount of scrap to purchase
     public string description;
+    public Sprite icon;
+    //public ItemData data;
 
     public TextMeshProUGUI itemNameUI;
     public TextMeshProUGUI itemDetailsUI;
@@ -34,15 +36,17 @@ public class Item : MonoBehaviour
     {
         if (target.CompareTag("Player"))
         {
-            //item goes into inventory
+            //Scriptable object data is copied to the player inventory
+            //Inventory inventory = Inventory.instance;           
+            //inventory.AddItem(data);
 
             //itemEffect.Activate(target.GetComponent<Player>()); //this line has to go eventually
             Destroy(gameObject);    //TODO: need to instead hide gameobject and destroy it later.
         }
     }
 
-    public virtual void Activate(Player player){}   //this is for one-time effects, such as healing.
-    public virtual void Equip(Player player){}
-    public virtual void Unequip(Player player){}
-    public virtual void PassiveEffect(Player player){}
+    //public virtual void Activate(Player player){}   //this is for one-time effects, such as healing.
+    //public virtual void Equip(Player player){}
+    //public virtual void Unequip(Player player){}
+    //public virtual void PassiveEffect(Player player){}
 }

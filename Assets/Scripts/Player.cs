@@ -13,9 +13,11 @@ public class Player : Robot
     //public float energy;       //basically stamina. Most actions use energy
     //public float maxEnergy;
 
-    float energyRegenRate;
-    float energyRegenMod;           //controls how fast the energy is restored.
+    [Header("Energy")]
+    public float energyRegenRate;
+    public float energyRegenMod;           //controls how fast the energy is restored.
     float energyRegenDelayDuration; //time is in seconds
+    [SerializeField]float sprintCost;       //how much energy is used per frame. The amount is scaled by delta time.
     float currentTime;
 
     //mods affect both the player and their equipped weapon's performance. By default, they have no effect until modules/chips are equipped.
@@ -32,6 +34,8 @@ public class Player : Robot
     [Header("Modules")]
     [SerializeField]Module[] modules;               //3 modules: 2 arm, 1 leg
     int maxModules {get;} = 3;
+
+    public Skill passiveSkill;          //may turn this into a list so player can have more than 1 passive.
 
 
     public bool weaponPickedUp;
@@ -62,16 +66,17 @@ public class Player : Robot
     void Start()
     {
         rm = RobotMovement.instance;
-        energyRegenMod = 0.18f;
-        energyRegenRate = maxEnergy * energyRegenMod;
+        energyRegenMod = 0.18f;   
+        energyRegenRate = maxEnergy * energyRegenMod;   //by default, 18% of energy is restored each second
         energyRegenDelayDuration = 1.5f;
+        sprintCost = 15;
         modules = new Module[maxModules];    
     }
 
     //Any actions that use up energy will cause the regeneration to be delayed until the action stops.
     public void ReduceEnergy(float amount)
     {
-        energy -= amount;
+        energy -= (amount - energyMod);
 
         if (energy < 0)
             energy = 0;
@@ -112,8 +117,14 @@ public class Player : Robot
 
         if (rm.isSprinting)
         {
-            ReduceEnergy(10 * Time.deltaTime);
+            ReduceEnergy((sprintCost - energyMod) * Time.deltaTime);
         }
+
+        //passive skill check
+        /*if (passiveSkill != null)
+        {
+            passiveSkill.Activate();
+        }*/
     }
 
     void OnCollisionEnter(Collision target)

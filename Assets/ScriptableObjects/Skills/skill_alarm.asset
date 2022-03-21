@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3a6c0bff9080e9143b4aa92fae8657d5, type: 3}
   m_Name: skill_alarm
   m_EditorClassIdentifier: 
-  skillName: 
-  details: 
+  skillName: Alarm
+  details: Makes a loud noise, and not much else
   energyCost: 0
   isPassive: 0

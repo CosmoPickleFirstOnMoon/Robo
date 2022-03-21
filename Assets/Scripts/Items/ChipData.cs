@@ -6,7 +6,7 @@ using UnityEngine;
 [CreateAssetMenu(menuName = "Item Data/Chip", fileName = "chip_")]
 public class ChipData : ItemData
 {
-    //protected bool isEquipped;
+    protected bool isEquipped;
     //public float health;
     //public float energy;
     //public float moveSpeed;
@@ -24,7 +24,7 @@ public class ChipData : ItemData
 
 
 
-    /*public override void Equip(Player player)
+    public override void Equip(Player player)
     {
        if (!isEquipped)
        { 
@@ -56,6 +56,6 @@ public class ChipData : ItemData
 
             isEquipped = false;
        }
-    }*/
+    }
 
 }    
