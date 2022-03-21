@@ -16,7 +16,7 @@ public class Module : Item
         itemName = data.itemName;
         price = data.price;
         description = data.description;
-        icon = data.icon;
+        icon = data.iconSprite;
         itemNameUI.text = itemName;
         itemDetailsUI.text = description;
         itemPriceUI.text = price.ToString();
@@ -65,12 +65,20 @@ public class Module : Item
             //copy module data and add to inventory
             Inventory inventory = Inventory.instance;
             
-            inventory.AddItem(data);            //TODO: Need to make a separate copy of the item
+            if (inventory.SpaceAvailable())
+            {
+                inventory.AddItem(data, inventory.availableSlotID);         
+                Destroy(gameObject);    //TODO: need to instead hide gameobject and destroy it later.
+            }
+            else
+            {
+                Debug.Log("Inventory full");
+            }
 
-            Player player = Player.instance;
+            //Player player = Player.instance;
             //Equip(player);
             //gameObject.SetActive(false);
-            Destroy(gameObject);    //TODO: need to instead hide gameobject and destroy it later.
+            
         }
     }
 }
