@@ -27,6 +27,30 @@ public class ItemSlot : MonoBehaviour
     //This method is called when the slot is clicked on.
     public void UseItem()
     {
-        Debug.Log("Slot " + slotID + " contains " + item.itemName);
+        if (item != null)
+        {
+            //check the item type so we know which method to execute
+            switch(item.itemType)
+            {
+                case ItemData.ItemType.Module:
+                    Player player = Player.instance;
+                    if (!item.IsEquipped())
+                    {
+                        item.Equip(player);
+                    }
+                    else
+                    {
+                        item.Unequip(player);
+                    }
+                    break;
+                case ItemData.ItemType.Chip:
+                    break;
+                case ItemData.ItemType.Blueprint:
+                    break;
+                case ItemData.ItemType.Healing:
+                    break;
+            }
+            Debug.Log("Slot " + slotID + " contains " + item.itemName);
+        }
     }
 }

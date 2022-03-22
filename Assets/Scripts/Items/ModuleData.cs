@@ -5,7 +5,7 @@ using UnityEngine;
 [CreateAssetMenu(menuName = "Item Data/Module", fileName = "module_")]
 public class ModuleData : ItemData
 {
-    protected bool isEquipped;
+    //public bool isEquipped;
     public float health;
     public float energy;
     public float moveSpeed;
@@ -38,6 +38,14 @@ public class ModuleData : ItemData
             player.maxEnergy -= energy;
             player.energyRegenRate = player.maxEnergy * player.energyRegenMod;
             player.passiveSkill = null;
+
+            //correct the stats
+            if (player.health > player.maxHealth)
+               player.health = player.maxHealth;
+            
+            if (player.energy > player.maxEnergy)
+               player.energy = player.maxEnergy;
+            
             UI ui = UI.instance;
             ui.UpdateMeters();
             isEquipped = false;
