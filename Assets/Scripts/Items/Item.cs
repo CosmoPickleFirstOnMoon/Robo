@@ -32,19 +32,8 @@ public abstract class Item : MonoBehaviour
         transform.rotation = Quaternion.Euler(0, rotation, 0);
     }
 
-    protected virtual void OnTriggerEnter(Collider target)
-    {
-        if (target.CompareTag("Player"))
-        {
-            //Scriptable object data is copied to the player inventory
-            //Inventory inventory = Inventory.instance;           
-            //inventory.AddItem(data);
-
-            //itemEffect.Activate(target.GetComponent<Player>()); //this line has to go eventually
-            Destroy(gameObject);    //TODO: need to instead hide gameobject and destroy it later.
-        }
-    }
-
+    protected virtual void OnTriggerEnter(Collider target) {}
+   
     //public virtual void Activate(Player player){}   //this is for one-time effects, such as healing.
     //public virtual void Equip(Player player){}
     //public virtual void Unequip(Player player){}

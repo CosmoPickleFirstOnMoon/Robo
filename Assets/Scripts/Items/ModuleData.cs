@@ -5,12 +5,21 @@ using UnityEngine;
 [CreateAssetMenu(menuName = "Item Data/Module", fileName = "module_")]
 public class ModuleData : ItemData
 {
-    protected bool isEquipped;
+    //public bool isEquipped;
     public float health;
     public float energy;
     public float moveSpeed;
     public Skill passiveSkill;   //must run in Player.cs update loop
+    
+    public enum ModuleType
+    {
+       FastArm, FastLeg, IndustrialArm, IndustrialLeg, ScrappyArm, ScrappyLeg
+    }
 
+    public ModuleType moduleType;
+    public EquipSlot[] chipSlot; //number of slots depends on module type
+    
+    public int MaxChipSlots {get;} = 3;
     public override void Equip(Player player)
     {
        if (!isEquipped)
@@ -38,6 +47,14 @@ public class ModuleData : ItemData
             player.maxEnergy -= energy;
             player.energyRegenRate = player.maxEnergy * player.energyRegenMod;
             player.passiveSkill = null;
+
+            //correct the stats
+            if (player.health > player.maxHealth)
+               player.health = player.maxHealth;
+            
+            if (player.energy > player.maxEnergy)
+               player.energy = player.maxEnergy;
+            
             UI ui = UI.instance;
             ui.UpdateMeters();
             isEquipped = false;

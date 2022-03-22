@@ -275,6 +275,17 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7386caf14a5c3db428c997b1ce484dea, type: 3}
+--- !u!114 &501444859 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 6572662053381352044, guid: 9431d02f180b4b94f884f09cb37187ea, type: 3}
+  m_PrefabInstance: {fileID: 7283107193005579493}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c429c2371fd3a724f984c48075fb0ea1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &559986167
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -566,36 +577,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   target: {fileID: 8135016872015146673}
---- !u!1 &966276510
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 966276511}
-  m_Layer: 0
-  m_Name: GameObject
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &966276511
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 966276510}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 882.5617, y: 325.64136, z: -32.61342}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 17
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1429903588 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 7767653560920247346, guid: dd1fa98343e57ba44815313d3ae012f3, type: 3}
@@ -1427,6 +1408,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Robot
       objectReference: {fileID: 0}
+    - target: {fileID: 8135016872015146674, guid: 9431d02f180b4b94f884f09cb37187ea, type: 3}
+      propertyPath: currentWeapon
+      value: 
+      objectReference: {fileID: 501444859}
     - target: {fileID: 8135016872015146678, guid: 9431d02f180b4b94f884f09cb37187ea, type: 3}
       propertyPath: modules.Array.size
       value: 3

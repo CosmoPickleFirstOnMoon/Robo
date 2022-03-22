@@ -1,24 +1,12 @@
+using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
 
-//item slots hold items. These can be clicked, and the item contained can be used, equipped, or dropped.
-//Mousing over the item should show its data.
-public class ItemSlot : MonoBehaviour
+//This is similar to ItemSlot except only modules and chips can be assigned to these.
+public class EquipSlot : ItemSlot
 {
-    public bool isEmpty;
-    public int slotID;
-    public ItemData item;
-    public Image icon;
 
-    // Start is called before the first frame update
-    protected void Start()
-    {
-        isEmpty = true;
-    }
-
-   
-    //This method is called when the slot is clicked on.
-    public virtual void UseItem()
+    /*public override void UseItem()
     {
         
         if (item != null)
@@ -42,12 +30,9 @@ public class ItemSlot : MonoBehaviour
                     }
                     break;
                 case ItemData.ItemType.Chip:
-                    break;
-                case ItemData.ItemType.Blueprint:
-                    break;
-                case ItemData.ItemType.Healing:
+                    //chips can only be equipped if a module is equipped
                     break;
             }
         }
-    }
+    }*/
 }
