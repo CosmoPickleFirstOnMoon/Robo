@@ -9,7 +9,7 @@ public abstract class ItemData : ScriptableObject
     public string itemName;
     public int price;           //amount of scrap to purchase
     public string description;
-    protected bool isEquipped = false;
+    public bool isEquipped = false;
 
     public enum ItemType
     {
