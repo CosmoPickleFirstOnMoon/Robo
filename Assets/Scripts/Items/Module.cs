@@ -6,7 +6,7 @@ using UnityEngine;
 public class Module : Item
 {
     public ModuleData data;
-    protected bool isEquipped;
+    //protected bool isEquipped;
     public float health;
     public float energy;
     public Skill passiveSkill;

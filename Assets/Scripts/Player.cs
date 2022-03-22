@@ -135,9 +135,23 @@ public class Player : Robot
         if (passiveSkill != null)
         {
             //Debug.Log("Checking passive skill");
-
-            if (passiveSkill.targetType == Skill.TargetType.Self)
-                passiveSkill.Activate(this);
+            switch(passiveSkill.targetType)
+            {
+                case Skill.TargetType.None:
+                    passiveSkill.Activate();
+                    break;
+                case Skill.TargetType.Self:
+                    passiveSkill.Activate(this);
+                    break;
+                case Skill.TargetType.One:
+                    break;
+                case Skill.TargetType.All:
+                    break;
+                default:
+                    break;
+            }
+            //if (passiveSkill.targetType == Skill.TargetType.Self)
+                //passiveSkill.Activate(this);
         }
     }
 
