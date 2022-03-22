@@ -18,7 +18,7 @@ public class Player : Robot
     public float energyRegenMod;           //controls how fast the energy is restored.
     float energyRegenDelayDuration; //time is in seconds
     [SerializeField]float sprintCost;       //how much energy is used per frame. The amount is scaled by delta time.
-    float currentTime;
+    //float currentTime;
 
     //mods affect both the player and their equipped weapon's performance. By default, they have no effect until modules/chips are equipped.
     [Header("Mods")]
@@ -100,6 +100,17 @@ public class Player : Robot
         ui.ChangeHealthMeter();
     }
 
+    public void RestoreHealth(float amount)
+    {
+        health += amount;
+        if (health > maxHealth)
+            health = maxHealth;
+        
+        //update UI
+        UI ui = UI.instance;
+        ui.ChangeHealthMeter(healing: true);
+    }
+
     public bool EnergyRegenerating()
     {
         return Time.time > currentTime + energyRegenDelayDuration;
@@ -121,10 +132,13 @@ public class Player : Robot
         }
 
         //passive skill check
-        /*if (passiveSkill != null)
+        if (passiveSkill != null)
         {
-            passiveSkill.Activate();
-        }*/
+            //Debug.Log("Checking passive skill");
+
+            if (passiveSkill.targetType == Skill.TargetType.Self)
+                passiveSkill.Activate(this);
+        }
     }
 
     void OnCollisionEnter(Collision target)

@@ -10,7 +10,16 @@ public class ModuleData : ItemData
     public float energy;
     public float moveSpeed;
     public Skill passiveSkill;   //must run in Player.cs update loop
+    
+    public enum ModuleType
+    {
+       FastArm, FastLeg, IndustrialArm, IndustrialLeg, ScrappyArm, ScrappyLeg
+    }
 
+    public ModuleType moduleType;
+    public EquipSlot[] chipSlot; //number of slots depends on module type
+    
+    public int MaxChipSlots {get;} = 3;
     public override void Equip(Player player)
     {
        if (!isEquipped)

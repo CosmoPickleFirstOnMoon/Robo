@@ -6,7 +6,7 @@ using UnityEngine;
 public class Turret : Enemy
 {
     float cooldown = 1.5f;     //delay between shots
-    float currentTime;
+    //float currentTime;
     float minRange = 6;
 
     [SerializeField]Alarm alarmSkill;

@@ -20,4 +20,6 @@ MonoBehaviour:
   health: 200
   energy: 10
   moveSpeed: 0
-  passiveSkill: {fileID: 0}
+  passiveSkill: {fileID: 11400000, guid: c9c662535153fde4aa7722add14080d2, type: 2}
+  moduleType: 0
+  chipSlot: []

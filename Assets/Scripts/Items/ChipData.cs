@@ -6,7 +6,7 @@ using UnityEngine;
 [CreateAssetMenu(menuName = "Item Data/Chip", fileName = "chip_")]
 public class ChipData : ItemData
 {
-    protected bool isEquipped;
+    //protected bool isEquipped;
     //public float health;
     //public float energy;
     //public float moveSpeed;
