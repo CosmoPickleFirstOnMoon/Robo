@@ -15,6 +15,8 @@ public class Inventory : MonoBehaviour
 
     //[SerializeField]ItemData[] items;
     [SerializeField]ItemSlot[] itemSlots;
+    [SerializeField]EquipSlot[] equipSlots;     //3 slots total
+    
     //[SerializeField]Image[] itemIcons;
     int maxItems {get;} = 2;
     //int currentEmptySlot;           //points to an available slot.
@@ -94,7 +96,8 @@ public class Inventory : MonoBehaviour
 
          itemSlots[slotID].item = item;
          itemSlots[slotID].isEmpty = false;
-         itemSlots[slotID].icon.sprite = item.iconSprite;      
+         itemSlots[slotID].icon.sprite = item.iconSprite;
+         itemSlots[slotID].icon.enabled = true;       
     }
 
    

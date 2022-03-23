@@ -31,6 +31,9 @@ public class UI : MonoBehaviour
 
     //coroutine checks
     bool adjustMeterCoroutineOn;
+    bool reduceHealthCoroutineOn;
+    bool restoreHealthCoroutineOn;
+    bool healingCoroutineOn;
 
     Player player;
     public static UI instance;
@@ -113,7 +116,8 @@ public class UI : MonoBehaviour
 
             //healthMeter.value = player.health / player.maxHealth;
             //healthSecondaryColor.color = damageColor;
-            StartCoroutine(AdjustMeter(healthMeter, healthSecondaryMeter, healthSecondaryColor, player.health, player.maxHealth));
+            //StartCoroutine(AdjustMeter(healthMeter, healthSecondaryMeter, healthSecondaryColor, player.health, player.maxHealth));
+            StartCoroutine(ReduceHealthMeter());
 
             player.ReduceEnergy(20);
             //energyMeter.value = player.energy / player.maxEnergy;
@@ -123,13 +127,14 @@ public class UI : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.RightArrow))
         {
-            player.health += 50;
+            player.health += 20;
             if (player.health > player.maxHealth)
                 player.health = player.maxHealth;
             
             //healthSecondaryMeter.value = player.health / player.maxHealth;
             //healthSecondaryColor.color = healColor;
-            StartCoroutine(AdjustMeter(healthMeter, healthSecondaryMeter, healthSecondaryColor, player.health, player.maxHealth, true));
+            //StartCoroutine(AdjustMeter(healthMeter, healthSecondaryMeter, healthSecondaryColor, player.health, player.maxHealth, true));
+            StartCoroutine(RestoreHealthMeter());
 
             player.energy += 20;
             if (player.energy > player.maxEnergy)
@@ -148,10 +153,19 @@ public class UI : MonoBehaviour
 
     public void ChangeHealthMeter(bool healing = false)
     {
+        //StopCoroutine(AdjustHealthMeter());
         if (!healing)
-            StartCoroutine(AdjustMeter(healthMeter, healthSecondaryMeter, healthSecondaryColor, player.health, player.maxHealth));
+        {
+            //StartCoroutine(AdjustMeter(healthMeter, healthSecondaryMeter, healthSecondaryColor, player.health, player.maxHealth));
+            //if (!adjustMeterCoroutineOn)
+                StartCoroutine(ReduceHealthMeter());
+        }
         else
-            StartCoroutine(AdjustMeter(healthMeter, healthSecondaryMeter, healthSecondaryColor, player.health, player.maxHealth, isRecovering: true));
+        {
+            //StartCoroutine(AdjustMeter(healthMeter, healthSecondaryMeter, healthSecondaryColor, player.health, player.maxHealth, isRecovering: true));
+            //if (!adjustMeterCoroutineOn)
+                StartCoroutine(RestoreHealthMeter());
+        }
     }
 
     public void ChangeEnergyMeter(bool healing = false)
@@ -177,6 +191,77 @@ public class UI : MonoBehaviour
     #region Coroutines
 
     //this coroutine will be used for all sliders.
+    public IEnumerator ReduceHealthMeter(/*bool isRecovering = false*/)
+    {
+        //adjustMeterCoroutineOn = true;
+        //Color healColor = new Color(0.3f, 0.9f, 1);               //light blue
+        Color damageColor = new Color(1, 0.76f, 0.05f);           //gold
+        //Color durabilityDamageColor = new Color(0.7f, 0.06f, 0);  //dark red
+
+        if (!healingCoroutineOn)   //if damaged while healing, we don't run this part of the routine
+        {
+            reduceHealthCoroutineOn = true;
+            //healthSecondaryMeter.value = healthMeter.value;
+            healthMeter.value = player.health / player.maxHealth;              //show the portion that is being removed
+            healthSecondaryColor.color = damageColor;            
+            yield return new WaitForSeconds(0.5f);             //a slight delay is added to give player time to see what is happening
+
+            while (healthSecondaryMeter.value > healthMeter.value)
+            {
+                healthSecondaryMeter.value -= meterRate * Time.unscaledDeltaTime; //I use unscaled time so the rate is consistent
+                healthMeter.value = player.health / player.maxHealth;   //health is continuously checked in case player heals while secondary slider is updating
+                yield return null;
+            }
+
+            healthSecondaryMeter.value = healthMeter.value;
+            reduceHealthCoroutineOn = false;
+
+        }
+        /*else    //player is recovering
+        {
+            healingCoroutineOn = true;
+            //healthMeter.value = healthSecondaryMeter.value;
+            healthSecondaryMeter.value = player.health / player.maxHealth; //show the portion that is being recovered
+            healthSecondaryColor.color = healColor;
+            yield return new WaitForSeconds(0.5f);
+
+            while (healthMeter.value < healthSecondaryMeter.value)
+            {
+                healthMeter.value += meterRate * Time.unscaledDeltaTime;
+                healthSecondaryMeter.value = player.health / player.maxHealth;
+                yield return null;
+            }
+
+            healthMeter.value = healthSecondaryMeter.value;
+        }
+
+        adjustMeterCoroutineOn = false;
+        healingCoroutineOn = false;*/
+    }
+
+    IEnumerator RestoreHealthMeter()
+    {
+        Color healColor = new Color(0.3f, 0.9f, 1);               //light blue
+
+        if (!reduceHealthCoroutineOn)
+        {
+            healingCoroutineOn = true;
+            //healthMeter.value = healthSecondaryMeter.value;
+            healthSecondaryMeter.value = player.health / player.maxHealth; //show the portion that is being recovered
+            healthSecondaryColor.color = healColor;
+            yield return new WaitForSeconds(0.5f);
+
+            while (healthMeter.value < healthSecondaryMeter.value)
+            {
+                healthMeter.value += meterRate * Time.unscaledDeltaTime;
+                healthSecondaryMeter.value = player.health / player.maxHealth;  //if player is damaged while UI updating, we only update secondary meter
+                yield return null;
+            }
+
+            healthMeter.value = healthSecondaryMeter.value;
+            healingCoroutineOn = false;
+        }
+    }
     public IEnumerator AdjustMeter(Slider meter, Slider secondaryMeter, Image secondaryMeterColor, float currentValue, float maxValue, bool isRecovering = false)
     {
         adjustMeterCoroutineOn = true;
@@ -210,6 +295,7 @@ public class UI : MonoBehaviour
             while (meter.value < secondaryMeter.value)
             {
                 meter.value += meterRate * Time.unscaledDeltaTime;
+                secondaryMeter.value = player.health / player.maxHealth;
                 yield return null;
             }
 

@@ -6,7 +6,7 @@ using UnityEngine;
 public class EquipSlot : ItemSlot
 {
 
-    /*public override void UseItem()
+    public override void UseItem()
     {
         
         if (item != null)
@@ -34,5 +34,5 @@ public class EquipSlot : ItemSlot
                     break;
             }
         }
-    }*/
+    }
 }

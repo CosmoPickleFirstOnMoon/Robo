@@ -9,7 +9,8 @@ public abstract class ItemData : ScriptableObject
     public string itemName;
     public int price;           //amount of scrap to purchase
     public string description;
-    public bool isEquipped = false;
+    [System.NonSerialized]protected bool isEquipped = false;    //this is non-serialized so that Unity doesn't save the variable state after the game is stopped.
+    
 
     public enum ItemType
     {
