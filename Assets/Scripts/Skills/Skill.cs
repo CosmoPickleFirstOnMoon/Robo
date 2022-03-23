@@ -9,8 +9,8 @@ public abstract class Skill : ScriptableObject
     public string skillName;
     public string details;      //this is for devs to know what the skill does at a glance without having to go into the script. But if we decide to have
                                 //a bestiary, we could have this information be displayed in there.
-    public float energyCost;    //this doesn't apply if a skill is passive
-    public bool isPassive;      //if true, skill is always active and has no energy cost.
+    public float energyCost;
+    //public bool isPassive;      //if true, skill is always active and has no energy cost.
     [System.NonSerialized]protected float currentTime;        //used for skills that have a cooldown. NonSerialized prevents value from being saved after game is stopped. 
     public float cooldown;              //time in seconds. The time that must pass before a skill can be used again
 

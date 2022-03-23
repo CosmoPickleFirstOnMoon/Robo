@@ -16,8 +16,13 @@ public class EmergencyHeal : Skill
             if (target.TryGetComponent(out Player player))
             {
                 player.RestoreHealth(healAmount);
-                currentTime = Time.time;
             }
+            /*else if (target.TryGetComponent(out Enemy enemy))
+            {
+
+            }*/
+            currentTime = Time.time;
+
             
             Debug.Log("Emergency Heal activated, " + healAmount + " TSP restored");
             

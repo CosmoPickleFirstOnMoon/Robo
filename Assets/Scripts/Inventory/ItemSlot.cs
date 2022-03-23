@@ -14,6 +14,7 @@ public class ItemSlot : MonoBehaviour
     protected void Start()
     {
         isEmpty = true;
+        icon.enabled = false;
     }
 
    
@@ -23,7 +24,7 @@ public class ItemSlot : MonoBehaviour
         
         if (item != null)
         {
-            Debug.Log("Slot " + slotID + " contains " + item.itemName);
+            Debug.Log("Item Slot " + slotID + " contains " + item.itemName);
 
             //check the item type so we know which method to execute
             switch(item.itemType)
