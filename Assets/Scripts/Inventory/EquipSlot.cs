@@ -8,10 +8,15 @@ public class EquipSlot : ItemSlot
 
     public override void UseItem()
     {
+        Inventory inv = Inventory.instance;
+        /*if (inv.itemOnCursor && item.itemType == ItemData.ItemType.Module)
+        {
+
+        }*/
         
         if (item != null)
         {
-            Debug.Log("Slot " + slotID + " contains " + item.itemName);
+            Debug.Log("Equip Slot " + slotID + " contains " + item.itemName);
 
             //check the item type so we know which method to execute
             switch(item.itemType)

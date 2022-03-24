@@ -16,6 +16,10 @@ public class Inventory : MonoBehaviour
     //[SerializeField]ItemData[] items;
     [SerializeField]ItemSlot[] itemSlots;
     [SerializeField]EquipSlot[] equipSlots;     //3 slots total
+
+    public Image dragItem;    //the item that will follow mouse cursor when an item is clicked on.
+    public ModuleData copiedItem;
+    [HideInInspector]public bool itemOnCursor;  //if true, item follows mouse cursor.
     
     //[SerializeField]Image[] itemIcons;
     int maxItems {get;} = 2;
@@ -33,7 +37,6 @@ public class Inventory : MonoBehaviour
         }
 
         instance = this;
-
     }
     
 
@@ -45,12 +48,17 @@ public class Inventory : MonoBehaviour
         //itemSlots = new Image[maxItems];
         //currentEmptySlot = 0;
         availableSlotID = -1;
+        dragItem.enabled = false;
     }
 
     // Update is called once per frame
     void Update()
     {
         //when an item is clicked, perform an action based on the item type.
+        if (itemOnCursor)
+        {
+            dragItem.transform.position = Input.mousePosition;
+        }
     }
 
     //This method is triggered when tab button is clicked.
