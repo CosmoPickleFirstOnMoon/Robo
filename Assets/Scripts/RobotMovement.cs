@@ -20,6 +20,7 @@ public class RobotMovement : MonoBehaviour
 
     //singletons -added by King
     public static RobotMovement instance;
+    GameManager gm;
     Player player;
 
     void Awake()
@@ -40,6 +41,7 @@ public class RobotMovement : MonoBehaviour
     {
         rb = GetComponent<Rigidbody>();
         player = Player.instance; 
+        gm = GameManager.instance;
     }
     private void Update()
     {
@@ -83,7 +85,10 @@ public class RobotMovement : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
-        rb.AddRelativeForce(direction * speed * Time.fixedDeltaTime, ForceMode.Acceleration);
+        if (!gm.gamePaused)
+        {
+            rb.AddRelativeForce(direction * speed * Time.fixedDeltaTime, ForceMode.Acceleration);
+        }
 
     }
 }

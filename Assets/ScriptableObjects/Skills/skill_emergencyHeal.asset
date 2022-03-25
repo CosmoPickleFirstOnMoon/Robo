@@ -15,5 +15,5 @@ MonoBehaviour:
   skillName: Emergency Heal
   details: Restores 50% TSP when TSP < 33%; skill goes into large cooldown
   energyCost: 0
-  isPassive: 1
+  cooldown: 10
   targetType: 1

@@ -18,7 +18,8 @@ public class Inventory : MonoBehaviour
     [SerializeField]EquipSlot[] equipSlots;     //3 slots total
 
     public Image dragItem;    //the item that will follow mouse cursor when an item is clicked on.
-    public ModuleData copiedItem;
+    public ModuleData copiedModule;
+    public ChipData copiedChip;
     [HideInInspector]public bool itemOnCursor;  //if true, item follows mouse cursor.
     
     //[SerializeField]Image[] itemIcons;
@@ -27,6 +28,7 @@ public class Inventory : MonoBehaviour
     public int availableSlotID;
 
     public static Inventory instance;
+    GameManager gm;
 
     void Awake()
     {
@@ -43,6 +45,7 @@ public class Inventory : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        gm = GameManager.instance;
         initPos = transform.position;
         //items = new Item[maxItems];
         //itemSlots = new Image[maxItems];
@@ -57,7 +60,12 @@ public class Inventory : MonoBehaviour
         //when an item is clicked, perform an action based on the item type.
         if (itemOnCursor)
         {
+            dragItem.enabled = true;
             dragItem.transform.position = Input.mousePosition;
+        }
+        else
+        {
+            dragItem.enabled = false;
         }
     }
 
@@ -65,6 +73,7 @@ public class Inventory : MonoBehaviour
     public void ToggleInventory()
     {
         isOpened = !isOpened;
+        gm.gamePaused = (isOpened == true) ? true : false;
 
         if (!animateInventoryCoroutineOn)
         {
@@ -78,7 +87,7 @@ public class Inventory : MonoBehaviour
         bool emptySlotFound = false;
         while (!emptySlotFound && i < itemSlots.Length)
         {
-            if (itemSlots[i].isEmpty)
+            if (itemSlots[i].item == null)
             {
                 emptySlotFound = true;
                 availableSlotID = i;
@@ -103,7 +112,7 @@ public class Inventory : MonoBehaviour
          }
 
          itemSlots[slotID].item = item;
-         itemSlots[slotID].isEmpty = false;
+         //itemSlots[slotID].isEmpty = false;
          itemSlots[slotID].icon.sprite = item.iconSprite;
          itemSlots[slotID].icon.enabled = true;       
     }

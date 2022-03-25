@@ -62,8 +62,13 @@ MonoBehaviour:
   itemSlots:
   - {fileID: 5619413461043609827}
   - {fileID: 1596743765387398449}
-  equipSlots: []
+  equipSlots:
+  - {fileID: 5403047244039736147}
+  - {fileID: 1499701755155591731}
+  - {fileID: 4244639215533557088}
   dragItem: {fileID: 72084259105832958}
+  copiedModule: {fileID: 0}
+  copiedChip: {fileID: 0}
   itemOnCursor: 0
   availableSlotID: 0
 --- !u!1 &245174785
@@ -1828,9 +1833,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: ItemSlot, Assembly-CSharp
-        m_MethodName: UseItem
+      - m_Target: {fileID: 4244639215533557088}
+        m_TargetAssemblyTypeName: EquipSlot, Assembly-CSharp
+        m_MethodName: EquipItem
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -1856,6 +1861,7 @@ MonoBehaviour:
   slotID: 2
   item: {fileID: 0}
   icon: {fileID: 6317133147558388813}
+  slotType: 1
 --- !u!1 &2868307669875483879
 GameObject:
   m_ObjectHideFlags: 0
@@ -3936,9 +3942,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: ItemSlot, Assembly-CSharp
-        m_MethodName: UseItem
+      - m_Target: {fileID: 1499701755155591731}
+        m_TargetAssemblyTypeName: EquipSlot, Assembly-CSharp
+        m_MethodName: EquipItem
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -3964,6 +3970,7 @@ MonoBehaviour:
   slotID: 1
   item: {fileID: 0}
   icon: {fileID: 2885300655626890838}
+  slotType: 0
 --- !u!1 &7312347028778975452
 GameObject:
   m_ObjectHideFlags: 0
@@ -4432,9 +4439,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: ItemSlot, Assembly-CSharp
-        m_MethodName: UseItem
+      - m_Target: {fileID: 5403047244039736147}
+        m_TargetAssemblyTypeName: EquipSlot, Assembly-CSharp
+        m_MethodName: EquipItem
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -4460,6 +4467,7 @@ MonoBehaviour:
   slotID: 0
   item: {fileID: 0}
   icon: {fileID: 496427687187543097}
+  slotType: 0
 --- !u!1 &8561907669955642911
 GameObject:
   m_ObjectHideFlags: 0

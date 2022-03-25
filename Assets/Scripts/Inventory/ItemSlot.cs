@@ -5,7 +5,7 @@ using UnityEngine.UI;
 //Mousing over the item should show its data.
 public class ItemSlot : MonoBehaviour
 {
-    public bool isEmpty;
+    //public bool isEmpty;
     public int slotID;
     public ItemData item;
     public Image icon;
@@ -13,7 +13,7 @@ public class ItemSlot : MonoBehaviour
     // Start is called before the first frame update
     protected void Start()
     {
-        isEmpty = true;
+        //isEmpty = true;
         icon.enabled = false;
     }
 
@@ -37,17 +37,20 @@ public class ItemSlot : MonoBehaviour
                         //pick up item
                         inventory.dragItem.sprite = icon.sprite;
                         icon.enabled = false;
-                        inventory.dragItem.enabled = true;
+                        //inventory.dragItem.enabled = true;
 
                         //copy item data
-                        inventory.copiedItem = (ModuleData)item;
+                        inventory.copiedModule = (ModuleData)item;
+                        //item = null;
                     }
                     else
                     {
+                        //drop item
+
                         icon.enabled = true;
                         icon.sprite = inventory.dragItem.sprite;
                         //inventory.dragItem.sprite = null;
-                        inventory.dragItem.enabled = false;
+                        //inventory.dragItem.enabled = false;
                     }                  
                     //inventory.dragItem.sprite = (inventory.itemOnCursor == true) ? item.iconSprite : null;
                     
@@ -70,6 +73,10 @@ public class ItemSlot : MonoBehaviour
                 case ItemData.ItemType.Healing:
                     break;
             }
+        }
+        else
+        {
+            //check if item is on cursor, and drop item into slot.
         }
     }
 }

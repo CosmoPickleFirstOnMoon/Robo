@@ -8,6 +8,19 @@ public class GameManager : MonoBehaviour
 
     ItemManager itemManager;
     [SerializeField]Item itemPrefab;
+    public bool gamePaused;             //game pauses when inventory is open. only the player cannot act.
+
+    public static GameManager instance;
+    void Awake()
+    {
+        if (instance != null && instance != this)
+        {
+            Destroy(gameObject);
+            return;
+        }
+
+        instance = this;
+    }
     
     // Start is called before the first frame update
     void Start()
