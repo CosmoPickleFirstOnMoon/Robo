@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 
 /* when an item is used, its corresponding effect is activated. */
-public abstract class ItemData : ScriptableObject
+public class ItemData : ScriptableObject
 {
     public string itemName;
     public int price;           //amount of scrap to purchase

@@ -16,6 +16,12 @@ public class Inventory : MonoBehaviour
     //[SerializeField]ItemData[] items;
     [SerializeField]ItemSlot[] itemSlots;
     [SerializeField]EquipSlot[] equipSlots;     //3 slots total
+
+    public Image dragItem;    //the item that will follow mouse cursor when an item is clicked on.
+    public ModuleData copiedModule;
+    public ChipData copiedChip;
+    public ItemSlot copiedSlot;     //used for item swapping
+    [HideInInspector]public bool itemOnCursor;  //if true, item follows mouse cursor.
     
     //[SerializeField]Image[] itemIcons;
     int maxItems {get;} = 2;
@@ -23,6 +29,7 @@ public class Inventory : MonoBehaviour
     public int availableSlotID;
 
     public static Inventory instance;
+    GameManager gm;
 
     void Awake()
     {
@@ -33,30 +40,41 @@ public class Inventory : MonoBehaviour
         }
 
         instance = this;
-
     }
     
 
     // Start is called before the first frame update
     void Start()
     {
+        gm = GameManager.instance;
         initPos = transform.position;
         //items = new Item[maxItems];
         //itemSlots = new Image[maxItems];
         //currentEmptySlot = 0;
         availableSlotID = -1;
+        dragItem.enabled = false;
     }
 
     // Update is called once per frame
     void Update()
     {
         //when an item is clicked, perform an action based on the item type.
+        if (itemOnCursor)
+        {
+            dragItem.enabled = true;
+            dragItem.transform.position = Input.mousePosition;
+        }
+        else
+        {
+            dragItem.enabled = false;
+        }
     }
 
     //This method is triggered when tab button is clicked.
     public void ToggleInventory()
     {
         isOpened = !isOpened;
+        gm.gamePaused = (isOpened == true) ? true : false;
 
         if (!animateInventoryCoroutineOn)
         {
@@ -70,7 +88,7 @@ public class Inventory : MonoBehaviour
         bool emptySlotFound = false;
         while (!emptySlotFound && i < itemSlots.Length)
         {
-            if (itemSlots[i].isEmpty)
+            if (itemSlots[i].item == null)
             {
                 emptySlotFound = true;
                 availableSlotID = i;
@@ -95,7 +113,7 @@ public class Inventory : MonoBehaviour
          }
 
          itemSlots[slotID].item = item;
-         itemSlots[slotID].isEmpty = false;
+         //itemSlots[slotID].isEmpty = false;
          itemSlots[slotID].icon.sprite = item.iconSprite;
          itemSlots[slotID].icon.enabled = true;       
     }

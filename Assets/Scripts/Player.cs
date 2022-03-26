@@ -44,6 +44,7 @@ public class Player : Robot
     //singletons
     public static Player instance;
     RobotMovement rm;
+    GameManager gm;
 
    void Awake()
     {
@@ -66,6 +67,7 @@ public class Player : Robot
     void Start()
     {
         rm = RobotMovement.instance;
+        gm = GameManager.instance;
         energyRegenMod = 0.18f;   
         energyRegenRate = maxEnergy * energyRegenMod;   //by default, 18% of energy is restored each second
         energyRegenDelayDuration = 1.5f;
@@ -119,39 +121,42 @@ public class Player : Robot
    
     void Update()
     {
-        if (energy < maxEnergy && EnergyRegenerating())
+        if (!gm.gamePaused)
         {
-            energy += energyRegenRate * Time.deltaTime;
-            if (energy > maxEnergy)
-                energy = maxEnergy;
-        }
-
-        if (rm.isSprinting)
-        {
-            ReduceEnergy((sprintCost - energyMod) * Time.deltaTime);
-        }
-
-        //passive skill check
-        if (passiveSkill != null)
-        {
-            //Debug.Log("Checking passive skill");
-            switch(passiveSkill.targetType)
+            if (energy < maxEnergy && EnergyRegenerating())
             {
-                case Skill.TargetType.None:
-                    passiveSkill.Activate();
-                    break;
-                case Skill.TargetType.Self:
-                    passiveSkill.Activate(this);
-                    break;
-                case Skill.TargetType.One:
-                    break;
-                case Skill.TargetType.All:
-                    break;
-                default:
-                    break;
+                energy += energyRegenRate * Time.deltaTime;
+                if (energy > maxEnergy)
+                    energy = maxEnergy;
             }
-            //if (passiveSkill.targetType == Skill.TargetType.Self)
-                //passiveSkill.Activate(this);
+
+            if (rm.isSprinting)
+            {
+                ReduceEnergy((sprintCost - energyMod) * Time.deltaTime);
+            }
+
+            //passive skill check
+            if (passiveSkill != null)
+            {
+                //Debug.Log("Checking passive skill");
+                switch(passiveSkill.targetType)
+                {
+                    case Skill.TargetType.None:
+                        passiveSkill.Activate();
+                        break;
+                    case Skill.TargetType.Self:
+                        passiveSkill.Activate(this);
+                        break;
+                    case Skill.TargetType.One:
+                        break;
+                    case Skill.TargetType.All:
+                        break;
+                    default:
+                        break;
+                }
+                //if (passiveSkill.targetType == Skill.TargetType.Self)
+                    //passiveSkill.Activate(this);
+            }
         }
     }
 
