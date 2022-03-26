@@ -11,7 +11,8 @@ public class EquipSlot : ItemSlot
     public void EquipItem()
     {
         Inventory inv = Inventory.instance;
-        if (inv.itemOnCursor /*&& inv.copiedModule.itemType == ItemData.ItemType.Module*/)
+        Player player = Player.instance;
+        if (inv.itemOnCursor)
         {
             //is the slot type arm or leg?
             if (slotType == SlotType.Arm && 
@@ -26,9 +27,7 @@ public class EquipSlot : ItemSlot
                     icon.enabled = true;
                     inv.itemOnCursor = false;
                     inv.copiedModule = null;
-                    //inv.dragItem.enabled = false;
 
-                    Player player = Player.instance;
                     if (!item.IsEquipped())
                     {
                         item.Equip(player);
@@ -38,7 +37,6 @@ public class EquipSlot : ItemSlot
                 else
                 {
                     //drop module in slot and equip, and old module goes to cursor and its data is copied.
-                    Player player = Player.instance;
                     if (item.IsEquipped())
                     {
                         item.Unequip(player);
@@ -53,6 +51,7 @@ public class EquipSlot : ItemSlot
                 }
 
                 //delete the item from the slot it was in before.
+                inv.copiedSlot = null;
             }
             else    //item is a leg module
             {
@@ -61,8 +60,19 @@ public class EquipSlot : ItemSlot
         }
         else    //picking up item and unequipping it
         {
+            if (item.IsEquipped())
+            {
+                item.Unequip(player);
+                Debug.Log(item.itemName + " unequipped from equip slot " + slotID);
+            }
+            inv.dragItem.sprite = icon.sprite;
+            icon.enabled = false;
 
+            //copy item data
+            inv.copiedModule = (ModuleData)item;
+            inv.copiedSlot = this;
             inv.itemOnCursor = true;
+            item = null;
         }
         
         /*if (item != null)

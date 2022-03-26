@@ -20,6 +20,7 @@ public class Inventory : MonoBehaviour
     public Image dragItem;    //the item that will follow mouse cursor when an item is clicked on.
     public ModuleData copiedModule;
     public ChipData copiedChip;
+    public ItemSlot copiedSlot;     //used for item swapping
     [HideInInspector]public bool itemOnCursor;  //if true, item follows mouse cursor.
     
     //[SerializeField]Image[] itemIcons;

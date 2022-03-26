@@ -41,7 +41,8 @@ public class ItemSlot : MonoBehaviour
 
                         //copy item data
                         inventory.copiedModule = (ModuleData)item;
-                        //item = null;
+                        inventory.copiedSlot = this;
+                        item = null;
                     }
                     else
                     {
