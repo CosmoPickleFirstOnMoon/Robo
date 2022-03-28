@@ -15,51 +15,55 @@ public class EquipSlot : ItemSlot
 
         if (inv.itemOnCursor)
         {
-            //is the slot type arm or leg?
-            inv.copiedModule = (ModuleData)inv.copiedItem;
-
-            if (slotType == SlotType.Arm && 
-                (inv.copiedModule.moduleType == ModuleData.ModuleType.FastArm || inv.copiedModule.moduleType == ModuleData.ModuleType.ScrappyArm
-                || inv.copiedModule.moduleType == ModuleData.ModuleType.IndustrialArm))
+            //must check if the item is a module
+            if (inv.copiedItem.itemType == ItemData.ItemType.Module)
             {
-                if (item == null)
+                inv.copiedModule = (ModuleData)inv.copiedItem;
+
+                //is the slot type arm or leg?
+                if (slotType == SlotType.Arm && 
+                    (inv.copiedModule.moduleType == ModuleData.ModuleType.FastArm || inv.copiedModule.moduleType == ModuleData.ModuleType.ScrappyArm
+                    || inv.copiedModule.moduleType == ModuleData.ModuleType.IndustrialArm))
                 {
-                    //drop module in slot and equip
-                    item = inv.copiedModule;
-                    icon.sprite = inv.dragItem.sprite;
-                    icon.enabled = true;
-                    inv.itemOnCursor = false;
-                    inv.copiedModule = null;
-                    inv.copiedItem = null;
-
-                    if (!item.IsEquipped())
+                    if (item == null)
                     {
-                        item.Equip(player);
-                        Debug.Log(item.itemName + " equipped to equip slot " + slotID);
+                        //drop module in slot and equip
+                        item = inv.copiedModule;
+                        icon.sprite = inv.dragItem.sprite;
+                        icon.enabled = true;
+                        inv.itemOnCursor = false;
+                        inv.copiedModule = null;
+                        inv.copiedItem = null;
+
+                        if (!item.IsEquipped())
+                        {
+                            item.Equip(player);
+                            Debug.Log(item.itemName + " equipped to equip slot " + slotID);
+                        }
                     }
+                    else
+                    {
+                        //drop module in slot and equip, and old module goes to cursor and its data is copied.
+                        if (item.IsEquipped())
+                        {
+                            item.Unequip(player);
+                            Debug.Log(item.itemName + " unequipped from equip slot " + slotID);
+                        }
+                        ModuleData oldModule = (ModuleData)item;
+                        inv.copiedItem = item;
+                        item = inv.copiedModule;
+                        icon.sprite = inv.dragItem.sprite;
+                        inv.copiedModule = oldModule;
+                        inv.dragItem.sprite = oldModule.iconSprite;
+                    }
+
+                    //delete the item from the slot it was in before.
+                    inv.copiedSlot = null;
                 }
-                else
+                else    //item is a leg module
                 {
-                    //drop module in slot and equip, and old module goes to cursor and its data is copied.
-                    if (item.IsEquipped())
-                    {
-                        item.Unequip(player);
-                        Debug.Log(item.itemName + " unequipped from equip slot " + slotID);
-                    }
-                    ModuleData oldModule = (ModuleData)item;
-                    inv.copiedItem = item;
-                    item = inv.copiedModule;
-                    icon.sprite = inv.dragItem.sprite;
-                    inv.copiedModule = oldModule;
-                    inv.dragItem.sprite = oldModule.iconSprite;
+
                 }
-
-                //delete the item from the slot it was in before.
-                inv.copiedSlot = null;
-            }
-            else    //item is a leg module
-            {
-
             }
         }
         else    //picking up item and unequipping it
