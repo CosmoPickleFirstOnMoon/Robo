@@ -12,9 +12,12 @@ public class EquipSlot : ItemSlot
     {
         Inventory inv = Inventory.instance;
         Player player = Player.instance;
+
         if (inv.itemOnCursor)
         {
             //is the slot type arm or leg?
+            inv.copiedModule = (ModuleData)inv.copiedItem;
+
             if (slotType == SlotType.Arm && 
                 (inv.copiedModule.moduleType == ModuleData.ModuleType.FastArm || inv.copiedModule.moduleType == ModuleData.ModuleType.ScrappyArm
                 || inv.copiedModule.moduleType == ModuleData.ModuleType.IndustrialArm))
@@ -27,6 +30,7 @@ public class EquipSlot : ItemSlot
                     icon.enabled = true;
                     inv.itemOnCursor = false;
                     inv.copiedModule = null;
+                    inv.copiedItem = null;
 
                     if (!item.IsEquipped())
                     {
@@ -43,11 +47,11 @@ public class EquipSlot : ItemSlot
                         Debug.Log(item.itemName + " unequipped from equip slot " + slotID);
                     }
                     ModuleData oldModule = (ModuleData)item;
+                    inv.copiedItem = item;
                     item = inv.copiedModule;
                     icon.sprite = inv.dragItem.sprite;
                     inv.copiedModule = oldModule;
                     inv.dragItem.sprite = oldModule.iconSprite;
-                    //inv.dragItem.enabled = true;
                 }
 
                 //delete the item from the slot it was in before.
@@ -69,36 +73,12 @@ public class EquipSlot : ItemSlot
             icon.enabled = false;
 
             //copy item data
+            inv.copiedItem = item;
             inv.copiedModule = (ModuleData)item;
             inv.copiedSlot = this;
             inv.itemOnCursor = true;
             item = null;
         }
         
-        /*if (item != null)
-        {
-            Debug.Log("Equip Slot " + slotID + " contains " + item.itemName);
-
-            //check the item type so we know which method to execute
-            switch(item.itemType)
-            {
-                case ItemData.ItemType.Module:
-                    Player player = Player.instance;
-                    if (!item.IsEquipped())
-                    {
-                        item.Equip(player);
-                        Debug.Log(item.itemName + " equipped");
-                    }
-                    else
-                    {
-                        item.Unequip(player);
-                        Debug.Log(item.itemName + " removed");
-                    }
-                    break;
-                case ItemData.ItemType.Chip:
-                    //chips can only be equipped if a module is equipped
-                    break;
-            }
-        }*/
     }
 }
