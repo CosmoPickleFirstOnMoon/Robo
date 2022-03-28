@@ -19,65 +19,48 @@ public class ItemSlot : MonoBehaviour
 
    
     //This method is called when the slot is clicked on.
-    public virtual void UseItem()
+    public void UseItem()
     {
-        Inventory inventory = Inventory.instance;
-        if (item != null)
+        Inventory inv = Inventory.instance;
+        if (inv.itemOnCursor)
         {
-            Debug.Log("Item Slot " + slotID + " contains " + item.itemName);
-
-            //check the item type so we know which method to execute
-            switch(item.itemType)
+            if (item == null)
             {
-                case ItemData.ItemType.Module: /*case ItemData.ItemType.Chip:*/
-                    //inventory.dragItem.sprite = item.iconSprite;
-                    inventory.itemOnCursor = !inventory.itemOnCursor;
-                    if (inventory.itemOnCursor == true)
-                    {
-                        //pick up item
-                        inventory.dragItem.sprite = icon.sprite;
-                        icon.enabled = false;
-                        //inventory.dragItem.enabled = true;
-
-                        //copy item data
-                        inventory.copiedModule = (ModuleData)item;
-                        inventory.copiedSlot = this;
-                        item = null;
-                    }
-                    else
-                    {
-                        //drop item
-
-                        icon.enabled = true;
-                        icon.sprite = inventory.dragItem.sprite;
-                        //inventory.dragItem.sprite = null;
-                        //inventory.dragItem.enabled = false;
-                    }                  
-                    //inventory.dragItem.sprite = (inventory.itemOnCursor == true) ? item.iconSprite : null;
-                    
-                    /*Player player = Player.instance;
-                    if (!item.IsEquipped())
-                    {
-                        item.Equip(player);
-                        Debug.Log(item.itemName + " equipped");
-                    }
-                    else
-                    {
-                        item.Unequip(player);
-                        Debug.Log(item.itemName + " removed");
-                    }*/
-                    break;
-                //case ItemData.ItemType.Chip:
-                    //break;
-                case ItemData.ItemType.Blueprint:
-                    break;
-                case ItemData.ItemType.Healing:
-                    break;
+                //drop item in slot
+                item = inv.copiedItem;
+                icon.sprite = inv.dragItem.sprite;
+                icon.enabled = true;
+                inv.itemOnCursor = false;
+                inv.copiedItem = null;
             }
+            else
+            {
+                //drop item in slot, and old item goes to cursor and its data is copied.
+                ItemData oldItem = item;
+                inv.copiedItem = item;
+                icon.sprite = inv.dragItem.sprite;
+                inv.copiedItem = oldItem;
+                inv.dragItem.sprite = oldItem.iconSprite;
+            }
+
+            //delete the item from the slot it was in before.
+            inv.copiedSlot = null;
+
         }
-        else
+        else    //picking up item
         {
-            //check if item is on cursor, and drop item into slot.
+            if (item != null)
+            {
+                inv.dragItem.sprite = icon.sprite;
+                icon.enabled = false;
+
+                //copy item data
+                inv.copiedItem = item;
+                inv.copiedSlot = this;
+                inv.itemOnCursor = true;
+                item = null;
+                Debug.Log("Picked up Item");
+            }
         }
     }
 }

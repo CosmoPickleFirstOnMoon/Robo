@@ -18,6 +18,7 @@ public class Inventory : MonoBehaviour
     [SerializeField]EquipSlot[] equipSlots;     //3 slots total
 
     public Image dragItem;    //the item that will follow mouse cursor when an item is clicked on.
+    public ItemData copiedItem;
     public ModuleData copiedModule;
     public ChipData copiedChip;
     public ItemSlot copiedSlot;     //used for item swapping
