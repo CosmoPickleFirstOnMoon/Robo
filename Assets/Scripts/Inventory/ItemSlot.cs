@@ -22,7 +22,6 @@ public class ItemSlot : MonoBehaviour
     public void UseItem()
     {
         Inventory inv = Inventory.instance;
-        Debug.Log("Item on cursor " + inv.itemOnCursor);
         if (inv.itemOnCursor)
         {
             if (item == null)
@@ -33,7 +32,6 @@ public class ItemSlot : MonoBehaviour
                 icon.enabled = true;
                 inv.itemOnCursor = false;
                 inv.copiedItem = null;
-                Debug.Log("Dropping Item");
             }
             else
             {
@@ -43,11 +41,10 @@ public class ItemSlot : MonoBehaviour
                 icon.sprite = inv.dragItem.sprite;
                 inv.copiedItem = oldItem;
                 inv.dragItem.sprite = oldItem.iconSprite;
-                Debug.Log("Swapping Item");
             }
 
             //delete the item from the slot it was in before.
-            //inv.copiedSlot = null;
+            inv.copiedSlot = null;
 
         }
         else    //picking up item
@@ -59,7 +56,7 @@ public class ItemSlot : MonoBehaviour
 
                 //copy item data
                 inv.copiedItem = item;
-                //inv.copiedSlot = this;
+                inv.copiedSlot = this;
                 inv.itemOnCursor = true;
                 item = null;
                 Debug.Log("Picked up Item");

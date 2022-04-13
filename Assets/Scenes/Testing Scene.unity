@@ -465,7 +465,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e04437cf99d8f0b4cbce4577a0e9a680, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  roboto: {fileID: 1961284818}
+  roboto: {fileID: 0}
 --- !u!4 &896117396
 Transform:
   m_ObjectHideFlags: 0
@@ -864,17 +864,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1961284818 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 8135016872015146678, guid: 9431d02f180b4b94f884f09cb37187ea, type: 3}
-  m_PrefabInstance: {fileID: 7283107193005579493}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b570589331077604998767cef81f9f61, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1001 &2036680607
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -998,11 +987,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 245174787, guid: dd1fa98343e57ba44815313d3ae012f3, type: 3}
       propertyPath: m_RaycastTarget
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 696175414, guid: dd1fa98343e57ba44815313d3ae012f3, type: 3}
       propertyPath: m_RaycastTarget
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1622874305, guid: dd1fa98343e57ba44815313d3ae012f3, type: 3}
       propertyPath: m_AnchorMax.x
