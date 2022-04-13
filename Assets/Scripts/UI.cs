@@ -91,7 +91,7 @@ public class UI : MonoBehaviour
         //}
 
         //check if mouse is pointing to something.
-        /*Ray ray;
+        Ray ray;
         RaycastHit hit;
          
         ray = Camera.main.ScreenPointToRay(Input.mousePosition);
@@ -105,7 +105,7 @@ public class UI : MonoBehaviour
         else
         {
             itemPopupObject.SetActive(false);
-        }*/
+        }
 
         /*******FOR TESTING ONLY*******/
         if (Input.GetKeyDown(KeyCode.LeftArrow))

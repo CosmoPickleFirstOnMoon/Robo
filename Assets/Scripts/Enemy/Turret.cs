@@ -17,10 +17,12 @@ public class Turret : Enemy
     void Update()
     {
         //check if player is in range, and attack.
-        float attackRange = Vector3.Distance(transform.position, player.transform.position);
-        if (attackRange < minRange && CanFire())
+        //float attackRange = Vector3.Distance(transform.position, player.transform.position);
+        Vector3 range = transform.position - player.transform.position;
+        float attackRange = range.sqrMagnitude;
+        if (attackRange < minRange * minRange && CanFire())
         {
-            Debug.Log("attacking");
+            //Debug.Log("attacking");
             alarmSkill.Activate();
             bullet = Instantiate(bulletPrefab, transform.position, Quaternion.identity);
             bullet.transform.parent = transform;    //need this step to acquire enemy data that can be passed on to bullet
