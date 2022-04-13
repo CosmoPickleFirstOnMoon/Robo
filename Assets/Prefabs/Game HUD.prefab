@@ -67,8 +67,10 @@ MonoBehaviour:
   - {fileID: 1499701755155591731}
   - {fileID: 4244639215533557088}
   dragItem: {fileID: 72084259105832958}
+  copiedItem: {fileID: 0}
   copiedModule: {fileID: 0}
   copiedChip: {fileID: 0}
+  copiedSlot: {fileID: 0}
   itemOnCursor: 0
   availableSlotID: 0
 --- !u!1 &245174785
@@ -1658,7 +1660,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_RaycastTarget: 1
+  m_RaycastTarget: 0
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:

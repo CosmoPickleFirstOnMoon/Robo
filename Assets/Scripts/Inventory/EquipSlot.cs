@@ -20,7 +20,7 @@ public class EquipSlot : ItemSlot
             {
                 inv.copiedModule = (ModuleData)inv.copiedItem;
 
-                //is the slot type arm or leg?
+                //is the slot type arm or leg? TODO: re-write code to be cleaner
                 if (slotType == SlotType.Arm && 
                     (inv.copiedModule.moduleType == ModuleData.ModuleType.FastArm || inv.copiedModule.moduleType == ModuleData.ModuleType.ScrappyArm
                     || inv.copiedModule.moduleType == ModuleData.ModuleType.IndustrialArm))
@@ -60,9 +60,44 @@ public class EquipSlot : ItemSlot
                     //delete the item from the slot it was in before.
                     inv.copiedSlot = null;
                 }
-                else    //item is a leg module
+                else if (slotType == SlotType.Leg && 
+                    (inv.copiedModule.moduleType == ModuleData.ModuleType.FastLeg || inv.copiedModule.moduleType == ModuleData.ModuleType.ScrappyLeg
+                    || inv.copiedModule.moduleType == ModuleData.ModuleType.IndustrialLeg))  //item is a leg module
                 {
+                    if (item == null)
+                    {
+                        //drop module in slot and equip
+                        item = inv.copiedModule;
+                        icon.sprite = inv.dragItem.sprite;
+                        icon.enabled = true;
+                        inv.itemOnCursor = false;
+                        inv.copiedModule = null;
+                        inv.copiedItem = null;
 
+                        if (!item.IsEquipped())
+                        {
+                            item.Equip(player);
+                            Debug.Log(item.itemName + " equipped to equip slot " + slotID);
+                        }
+                    }
+                    else
+                    {
+                        //drop module in slot and equip, and old module goes to cursor and its data is copied.
+                        if (item.IsEquipped())
+                        {
+                            item.Unequip(player);
+                            Debug.Log(item.itemName + " unequipped from equip slot " + slotID);
+                        }
+                        ModuleData oldModule = (ModuleData)item;
+                        inv.copiedItem = item;
+                        item = inv.copiedModule;
+                        icon.sprite = inv.dragItem.sprite;
+                        inv.copiedModule = oldModule;
+                        inv.dragItem.sprite = oldModule.iconSprite;
+                    }
+
+                    //delete the item from the slot it was in before.
+                    inv.copiedSlot = null;
                 }
             }
         }
