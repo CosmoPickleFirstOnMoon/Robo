@@ -18,12 +18,12 @@ public class InputManager : MonoBehaviour
         if (Input.mouseScrollDelta.y != 0)
             roboto.Loadout.OnMouseWheel(Input.mouseScrollDelta.y > 0 ? 1 : -1);
                 
-        if (Input.GetMouseButtonDown(0))
+        /*if (Input.GetMouseButtonDown(0))
             roboto.Loadout.OnLeftClickDown();
         if (Input.GetMouseButton(0))
             roboto.Loadout.OnLeftClickHold();
         if (Input.GetMouseButtonUp(0))
-            roboto.Loadout.OnLeftClickUp();
+            roboto.Loadout.OnLeftClickUp();*/
 
         if (Input.GetKeyDown(KeyCode.R))
             roboto.Loadout.OnReload();
