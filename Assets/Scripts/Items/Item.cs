@@ -2,9 +2,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using UnityEngine.EventSystems;
 
 /* Base class for all non-weapon consumable items. The items can be picked up in game. A separate script will handle the item effects */
-public abstract class Item : MonoBehaviour
+public abstract class Item : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 {
     public string itemName;
     public int price;           //amount of scrap to purchase
@@ -30,6 +31,21 @@ public abstract class Item : MonoBehaviour
             rotation = 0;
         
         transform.rotation = Quaternion.Euler(0, rotation, 0);
+    }
+
+    public void OnPointerEnter(PointerEventData pointer)
+    {
+        Debug.Log("Mouse over " + itemName);
+        UI ui = UI.instance;
+        ui.itemPopupObject.SetActive(true);
+        ui.itemPopupText.text = itemNameUI.text + "\n" + itemPriceUI.text + " Scrap\n" + itemDetailsUI.text;
+    }
+
+    public void OnPointerExit(PointerEventData pointer)
+    {
+        UI ui = UI.instance;
+        ui.itemPopupObject.SetActive(false);
+        ui.itemPopupText.text = "";
     }
 
     protected virtual void OnTriggerEnter(Collider target) {}
